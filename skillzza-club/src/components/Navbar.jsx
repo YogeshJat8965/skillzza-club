@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download, Phone } from 'lucide-react';
 import { navLinks, navCTAs } from '../data/content';
+import logo from '../assets/SKillzza-Logo-123-01.png';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,12 +40,7 @@ const Navbar = () => {
               className="flex items-center gap-2 group"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-lg shadow-primary/30">
-                <span className="text-white font-black text-lg">S</span>
-              </div>
-              <span className="text-2xl font-extrabold tracking-tight text-dark">
-                Skill<span className="gradient-text-dark">zza</span>
-              </span>
+              <img src={logo} alt="Skillzza Logo" className="h-12 w-auto" />
             </motion.a>
 
             {/* Desktop Nav Links */}

@@ -78,13 +78,13 @@ export const studioCategories = {
       emoji: "🔗",
       name: "Blockchain & FinTech",
       category: "STEM",
-      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&q=80",
+      image: "https://images.yourstory.com/production/document_image/mystoryimage/273wgk44-Blockchain-1.jpg?fm=png&auto=format&w=800&blur=500",
     },
     {
       emoji: "📰",
       name: "Media & Journalism",
       category: "Creative Arts",
-      image: "https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=600&q=80",
+      image: "https://www.shu.ac.uk/-/media/home/olp/subject-area-images/media-pr-and-journalism.jpg?h=394&iar=0&w=700&sc_lang=en&hash=D801334AF4F599AADD8DFA53EEA52C81",
     },
     {
       emoji: "🌍",
@@ -108,7 +108,7 @@ export const studioCategories = {
       emoji: "🎨",
       name: "Creative Arts",
       category: "Creative Arts",
-      image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80",
+      image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80",
     },
     {
       emoji: "🪔",

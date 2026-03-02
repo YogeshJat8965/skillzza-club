@@ -21,7 +21,7 @@ const StudioCategories = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="studios" className="relative py-24 lg:py-32 bg-[#FAF9FE] overflow-hidden" ref={ref}>
+    <section id="studios" className="relative py-24 lg:py-32 bg-[#D8D4FD] overflow-hidden" ref={ref}>
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 blob animate-float-slow" />
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/8 blob animate-float" />
