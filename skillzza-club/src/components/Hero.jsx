@@ -27,20 +27,30 @@ const Hero = () => {
   // Circle is responsive: sm=300px, md=400px, lg=580px
   // Using average for better alignment across breakpoints
   const circleRadius = 290;
-  const cardOrbit = 245; // Positioned to align properly with circle rings
+  const cardOrbitMobile = 185; // Closer for mobile
+  const cardOrbitDesktop = 245; // Wider distance for desktop
   
   // Pentagon angles: evenly distributed starting from top
   const pentagonAngles = [-90, -18, 54, 126, 198]; // Standard pentagon distribution
   
+  // Calculate positions for both mobile and desktop
   const cardPositions = pentagonAngles.map((deg) => {
     const rad = (deg * Math.PI) / 180;
-    const x = Math.round(cardOrbit * Math.cos(rad));
-    const y = Math.round(cardOrbit * Math.sin(rad));
-    // Offset cards: -15px left, -15px upward
+    
+    // Mobile positions
+    const xMobile = Math.round(cardOrbitMobile * Math.cos(rad));
+    const yMobile = Math.round(cardOrbitMobile * Math.sin(rad));
+    
+    // Desktop positions
+    const xDesktop = Math.round(cardOrbitDesktop * Math.cos(rad));
+    const yDesktop = Math.round(cardOrbitDesktop * Math.sin(rad));
+    
+    // Offset cards: -55px left, -45px upward
     return {
-      left: `calc(50% + ${x - 55}px)`,
-      top: `calc(50% + ${y - 45}px)`,
-      transform: 'translate(-50%, -50%)',
+      '--mobile-left': `${xMobile - 55}px`,
+      '--mobile-top': `${yMobile - 45}px`,
+      '--desktop-left': `${xDesktop - 55}px`,
+      '--desktop-top': `${yDesktop - 45}px`,
     };
   });
 
@@ -68,7 +78,7 @@ const Hero = () => {
       <div className="hero-shimmer-overlay" />
 
       {/* ─── TWO-COLUMN LAYOUT ─── */}
-      <div className="relative z-10 pt-24 sm:pt-32 lg:pt-44 xl:pt-48 pb-24 sm:pb-32 lg:pb-44 xl:pb-48 min-h-screen flex items-center" ref={ref}>
+      <div className="relative z-10 pt-28 sm:pt-32 lg:pt-44 xl:pt-48 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-16 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
@@ -137,7 +147,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-              className="relative flex items-center justify-center order-2 mb-8 lg:mb-0"
+              className="relative flex items-center justify-center order-2 mb-26 lg:mb-0"
             >
               {/* Container for circle + cards — scaled down on mobile so cards fit */}
               {/* MOBILE SCALE: Increase scale-[0.7] for bigger mobile view */}
@@ -274,7 +284,7 @@ const Hero = () => {
                       initial={{ opacity: 0, scale: 0 }}
                       animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                       transition={{ duration: 0.5, delay: 0.7 + idx * 0.15, type: 'spring' }}
-                      className="absolute z-30"
+                      className="absolute z-30 hero-card-position"
                       style={cardPositions[idx]}
                     >
                       <div className="relative group origin-center">

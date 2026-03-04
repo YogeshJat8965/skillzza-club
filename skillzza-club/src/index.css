@@ -218,5 +218,19 @@ body {
     transparent 60%,
     transparent 100%
   );
-  animation: bgShimmer 12s infinite linear;
+  animation: bgShimmer 4s infinite linear;
+}
+
+/* Responsive hero card positioning */
+.hero-card-position {
+  left: calc(50% + var(--mobile-left));
+  top: calc(50% + var(--mobile-top));
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 1024px) {
+  .hero-card-position {
+    left: calc(50% + var(--desktop-left));
+    top: calc(50% + var(--desktop-top));
+  }
 }
