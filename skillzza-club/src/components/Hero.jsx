@@ -21,9 +21,10 @@ const Hero = () => {
   ];
 
   // Pentagon positions for floating cards around the circle
-  // Circle is 580px diameter (290px radius), cards orbit uniformly
+  // Circle is responsive: sm=300px, md=400px, lg=580px
+  // Using average for better alignment across breakpoints
   const circleRadius = 290;
-  const cardOrbit = 305; // All cards at same distance from center
+  const cardOrbit = 245; // Positioned to align properly with circle rings
   
   // Pentagon angles: evenly distributed starting from top
   const pentagonAngles = [-90, -18, 54, 126, 198]; // Standard pentagon distribution
@@ -32,9 +33,10 @@ const Hero = () => {
     const rad = (deg * Math.PI) / 180;
     const x = Math.round(cardOrbit * Math.cos(rad));
     const y = Math.round(cardOrbit * Math.sin(rad));
+    // Offset cards: -15px left, -15px upward
     return {
-      left: `calc(50% + ${x}px)`,
-      top: `calc(50% + ${y}px)`,
+      left: `calc(50% + ${x - 55}px)`,
+      top: `calc(50% + ${y - 45}px)`,
       transform: 'translate(-50%, -50%)',
     };
   });
@@ -52,7 +54,7 @@ const Hero = () => {
     <section className="relative overflow-hidden">
       {/* ─── Background ─── */}
       <div className="absolute inset-0" style={{
-        background: 'linear-gradient(180deg, #966CDE 0%, #2D1B69 50%, #1A0F3C 100%)',
+        background: '#966CDE',
       }} />
       {/* Grid lines overlay */}
       <div className="absolute inset-0" style={{
@@ -96,12 +98,12 @@ const Hero = () => {
               </motion.h1>
 
               {/* Subheading */}
-              <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl lg:text-[1.35rem] text-white/80 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
+              <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl lg:text-[1.35rem] text-white font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
                 {hero.subheading}
               </motion.p>
 
               {/* Description */}
-              <motion.p variants={itemVariants} className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-white/55 max-w-2xl mx-auto lg:mx-0 leading-[1.7] sm:leading-[1.8] mb-8 sm:mb-12">
+              <motion.p variants={itemVariants} className="text-sm sm:text-[15px] md:text-base lg:text-[17px] text-white max-w-2xl mx-auto lg:mx-0 leading-[1.7] sm:leading-[1.8] mb-8 sm:mb-12">
                 {hero.description}
               </motion.p>
 
@@ -165,7 +167,7 @@ const Hero = () => {
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-                      className="absolute inset-0 rounded-full border-[1.5px] border-dashed border-white/20"
+                      className="absolute inset-0 rounded-full border-[2px] border-dashed border-white/50"
                     >
                       {/* Rotating marker on Ring 1 */}
                       <div className="absolute w-2 h-2 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.6)]" style={{ left: '50%', top: '0%', transform: 'translate(-50%, -50%)' }} />
@@ -174,7 +176,7 @@ const Hero = () => {
                     <motion.div
                       animate={{ rotate: -360 }}
                       transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
-                      className="absolute inset-4 sm:inset-5 md:inset-6 lg:inset-8 rounded-full border-[1.5px] border-dashed border-white/20"
+                      className="absolute inset-4 sm:inset-5 md:inset-6 lg:inset-8 rounded-full border-[2px] border-dashed border-white/50"
                     >
                       {/* Rotating marker on Ring 2 */}
                       <div className="absolute w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_8px_rgba(251,191,36,0.7)]" style={{ left: '100%', top: '50%', transform: 'translate(-50%, -50%)' }} />
@@ -183,7 +185,7 @@ const Hero = () => {
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 70, repeat: Infinity, ease: 'linear' }}
-                      className="absolute inset-8 sm:inset-10 md:inset-12 lg:inset-16 rounded-full border-[1.5px] border-dashed border-white/20"
+                      className="absolute inset-8 sm:inset-10 md:inset-12 lg:inset-16 rounded-full border-[2px] border-dashed border-white/50"
                     >
                       {/* Rotating marker on Ring 3 */}
                       <div className="absolute w-2 h-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_rgba(34,211,238,0.7)]" style={{ left: '50%', top: '100%', transform: 'translate(-50%, -50%)' }} />
@@ -192,7 +194,7 @@ const Hero = () => {
                     <motion.div
                       animate={{ rotate: -360 }}
                       transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
-                      className="absolute inset-12 sm:inset-15 md:inset-18 lg:inset-24 rounded-full border-[1.5px] border-dashed border-white/20"
+                      className="absolute inset-12 sm:inset-15 md:inset-18 lg:inset-24 rounded-full border-[2px] border-dashed border-white/50"
                     >
                       {/* Rotating marker on Ring 4 */}
                       <div className="absolute w-2 h-2 rounded-full bg-pink-400/80 shadow-[0_0_8px_rgba(244,114,182,0.7)]" style={{ left: '0%', top: '50%', transform: 'translate(-50%, -50%)' }} />
@@ -252,25 +254,43 @@ const Hero = () => {
                 </div>
 
                 {/* ── 5 Floating Cards (pentagon layout) ── */}
-                {labelData.map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.7 + idx * 0.15, type: 'spring' }}
-                    className="absolute z-30 hidden sm:block"
-                    style={cardPositions[idx]}
-                  >
+                {labelData.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
                     <motion.div
-                      animate={{ y: [0, idx % 2 === 0 ? -5 : 5, 0] }}
-                      transition={{ duration: 3.4 + idx * 0.1, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.3 }}
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.7 + idx * 0.15, type: 'spring' }}
+                      className="absolute z-30 hidden sm:block"
+                      style={cardPositions[idx]}
                     >
-                      <div className="flex flex-col items-center justify-center bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-xl px-2 py-2 sm:px-3 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.25)] min-h-[50px] sm:min-h-[60px] md:min-h-[65px] lg:min-h-[70px] w-[70px] sm:w-[80px] md:w-[95px] lg:w-[105px]">
-                        <span className="text-white font-semibold text-[9px] sm:text-[10px] md:text-[11.5px] lg:text-[13.5px] leading-[1.3] text-center whitespace-pre-line">{item.text}</span>
-                      </div>
+                      <motion.div
+                        animate={{ y: [0, idx % 2 === 0 ? -5 : 5, 0] }}
+                        transition={{ duration: 3.4 + idx * 0.1, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.3 }}
+                        whileHover={{ scale: 1.05, y: -8 }}
+                        className="relative group"
+                      >
+                        {/* Card */}
+                        <div className="flex flex-col items-center justify-center gap-2.5 backdrop-blur-xl border border-white/40 rounded-2xl px-3 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_60px_rgba(138,43,226,0.4)] transition-all duration-300 h-[115px] w-[120px] relative overflow-hidden group-hover:border-white/60" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))' }}>
+                          
+                          {/* Hover gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                          
+                          {/* Icon - clean without background */}
+                          <div className="relative z-10 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <Icon className="w-8 h-8 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" style={{ color: '#F59E0B' }} strokeWidth={1.5} />
+                          </div>
+                          
+                          {/* Text */}
+                          <span className="relative z-10 text-white font-medium text-[11px] leading-[1.4] text-center whitespace-pre-line drop-shadow-sm px-1">
+                            {item.text}
+                          </span>
+                        </div>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                ))}
+                  );
+                })}
 
               </div>
             </motion.div>
