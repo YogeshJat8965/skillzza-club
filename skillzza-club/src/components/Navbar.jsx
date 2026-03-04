@@ -40,7 +40,7 @@ const Navbar = () => {
               className="flex items-center gap-2 group"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="Skillzza Logo" className="h-12 w-auto" />
+              <img src={logo} alt="Skillzza Logo" className="h-14 w-auto" />
             </motion.a>
 
             {/* Desktop Nav Links */}
@@ -49,7 +49,7 @@ const Navbar = () => {
                 <button
                   key={link.label}
                   onClick={() => scrollToSection(link.href)}
-                  className="relative text-sm font-medium text-gray-600 hover:text-primary transition-colors duration-300 group"
+                  className="relative text-sm font-medium text-gray-900 hover:text-primary transition-colors duration-300 group"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-full" />

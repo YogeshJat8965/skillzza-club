@@ -4,7 +4,7 @@ import { CheckCircle2, ArrowRight, BookOpen, Layers, Award } from 'lucide-react'
 import { studioModel } from '../data/content';
 
 const StudioModel = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   const timelineStudios = [
     { name: 'STEM Studio', icon: '🤖', color: '#3B82F6', term: 'Term 1' },
@@ -31,12 +31,12 @@ const StudioModel = () => {
             <div className="text-center mb-10">
               <motion.div
                 initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : {}}
+                animate={inView ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/10 border border-primary/20"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-primary/10 border border-primary/20"
               >
-                <BookOpen size={18} className="text-primary" />
-                <span className="text-sm font-bold text-primary">Academic Year Roadmap</span>
+                <BookOpen size={20} className="text-primary" />
+                <span className="text-base font-bold text-primary">Academic Year Roadmap</span>
               </motion.div>
             </div>
 
@@ -45,7 +45,7 @@ const StudioModel = () => {
               {/* Vertical Line */}
               <motion.div
                 initial={{ height: 0 }}
-                animate={inView ? { height: '100%' } : {}}
+                animate={inView ? { height: '100%' } : { height: 0 }}
                 transition={{ duration: 1.2, delay: 0.4, ease: 'easeOut' }}
                 className="absolute left-3 top-0 w-0.5 bg-gradient-to-b from-blue-500 via-amber-500 to-green-500"
               />
@@ -61,7 +61,7 @@ const StudioModel = () => {
                   {/* Node */}
                   <motion.div
                     initial={{ scale: 0 }}
-                    animate={inView ? { scale: 1 } : {}}
+                    animate={inView ? { scale: 1 } : { scale: 0 }}
                     transition={{ duration: 0.4, delay: 0.6 + i * 0.2, type: 'spring' }}
                     className="absolute -left-8 w-6 h-6 rounded-full border-4 border-white shadow-lg flex-shrink-0"
                     style={{ backgroundColor: studio.color }}
@@ -82,7 +82,7 @@ const StudioModel = () => {
                       <div className="h-1.5 flex-1 rounded-full bg-gray-100 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={inView ? { width: '100%' } : {}}
+                          animate={inView ? { width: '100%' } : { width: 0 }}
                           transition={{ duration: 1.5, delay: 0.8 + i * 0.3 }}
                           className="h-full rounded-full"
                           style={{ backgroundColor: studio.color }}

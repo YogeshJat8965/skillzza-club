@@ -12,7 +12,7 @@ const wheelItems = [
 ];
 
 const ImplementationFramework = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
     <section id="implementation" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-dark via-dark-light to-dark">
@@ -72,7 +72,7 @@ const ImplementationFramework = () => {
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 + i * 0.15, type: 'spring' }}
                     className="absolute flex flex-col items-center"
                     style={{
@@ -80,13 +80,12 @@ const ImplementationFramework = () => {
                       top: `${y}%`,
                     }}
                   >
-                    <motion.div
-                      whileHover={{ scale: 1.15 }}
-                      className="w-16 h-16 rounded-xl glass flex items-center justify-center shadow-lg cursor-pointer transition-all duration-300 -translate-x-1/2 -translate-y-1/2"
-                      style={{ borderColor: item.color + '40', borderWidth: '1px' }}
+                    <div
+                      className="group w-16 h-16 rounded-xl glass flex items-center justify-center shadow-lg cursor-pointer transition-shadow duration-300 -translate-x-1/2 -translate-y-1/2 border"
+                      style={{ borderColor: item.color + '40' }}
                     >
-                      <Icon size={24} style={{ color: item.color }} />
-                    </motion.div>
+                      <Icon size={24} style={{ color: item.color }} className="group-hover:scale-110 transition-transform duration-300" />
+                    </div>
                     <p className="text-xs text-white/70 font-medium text-center max-w-20 leading-tight -translate-x-1/2 -mt-1">
                       {item.label}
                     </p>
@@ -116,13 +115,13 @@ const ImplementationFramework = () => {
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
                   transition={{ delay: 0.6 + i * 0.1 }}
                   className="flex items-start gap-3 group"
                 >
                   <CheckCircle2
                     size={22}
-                    className="text-green-400 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform"
+                    className="text-green-400 flex-shrink-0 mt-0.5 transition-transform"
                   />
                   <span className="text-white/80 text-base leading-relaxed group-hover:text-white transition-colors">
                     {item}
@@ -132,14 +131,12 @@ const ImplementationFramework = () => {
             </div>
 
             {/* CTA */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white font-bold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow btn-glow"
             >
               {implementationFramework.cta}
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            </button>
           </motion.div>
         </div>
       </div>

@@ -22,7 +22,7 @@ const dashboardSkills = [
 ];
 
 const ImpactMeasurement = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
     <section id="impact" className="relative py-24 lg:py-32 bg-primary-50 overflow-hidden">
@@ -116,7 +116,7 @@ const ImpactMeasurement = () => {
                       <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={inView ? { width: `${skill.value}%` } : {}}
+                          animate={inView ? { width: `${skill.value}%` } : { width: 0 }}
                           transition={{ duration: 1.5, delay: 0.8 + i * 0.15, ease: 'easeOut' }}
                           className="h-full rounded-full"
                           style={{ backgroundColor: skill.color }}
@@ -135,7 +135,7 @@ const ImpactMeasurement = () => {
                     <motion.div
                       key={i}
                       initial={{ scale: 0 }}
-                      animate={inView ? { scale: 1 } : {}}
+                      animate={inView ? { scale: 1 } : { scale: 0 }}
                       transition={{ delay: 1.5 + i * 0.1, type: 'spring' }}
                       className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center text-xl shadow-sm"
                     >
@@ -159,7 +159,7 @@ const ImpactMeasurement = () => {
                         strokeLinecap="round"
                         strokeDasharray="100.53"
                         initial={{ strokeDashoffset: 100.53 }}
-                        animate={inView ? { strokeDashoffset: 100.53 * 0.14 } : {}}
+                        animate={inView ? { strokeDashoffset: 100.53 * 0.14 } : { strokeDashoffset: 100.53 }}
                         transition={{ duration: 2, delay: 1.2, ease: 'easeOut' }}
                       />
                     </svg>

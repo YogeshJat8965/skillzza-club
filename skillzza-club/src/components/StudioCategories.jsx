@@ -18,7 +18,7 @@ const categoryBg = {
 };
 
 const StudioCategories = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.1 });
 
   return (
     <section id="studios" className="relative py-24 lg:py-32 bg-[#D8D4FD] overflow-hidden" ref={ref}>
@@ -38,7 +38,7 @@ const StudioCategories = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-4"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest">
+          <span className="inline-block px-6 py-2.5 rounded-full bg-primary/10 text-primary text-sm font-bold uppercase tracking-widest">
             {studioCategories.label}
           </span>
         </motion.div>
@@ -71,7 +71,7 @@ const StudioCategories = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer card-hover"
+              className={`group relative rounded-2xl overflow-hidden cursor-pointer card-hover ${i >= 5 ? 'hidden sm:block' : ''}`}
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">

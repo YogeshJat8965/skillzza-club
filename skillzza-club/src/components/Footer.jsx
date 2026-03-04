@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import { footer } from '../data/content';
 
 const Footer = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
     <footer className="relative bg-[#D8D4FD] py-16 overflow-hidden" ref={ref}>

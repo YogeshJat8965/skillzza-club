@@ -23,7 +23,7 @@ const domainBorders = [
 ];
 
 const DomainsSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
     <section className="relative py-24 lg:py-32 bg-gradient-to-br from-primary-50 via-white to-secondary-light overflow-hidden">
@@ -35,45 +35,41 @@ const DomainsSection = () => {
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark mb-4 leading-tight max-w-3xl mx-auto">
             {domainsSection.heading}
           </h2>
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-bold uppercase tracking-widest">
+          <span className="inline-block px-6 py-2.5 rounded-full bg-primary/10 text-primary text-base font-bold uppercase tracking-widest">
             {domainsSection.label}
           </span>
         </motion.div>
 
         {/* Domain Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {domainsSection.domains.map((domain, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-              className={`${i === 6 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+              className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
             >
-              <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                className={`group relative bg-white rounded-2xl p-8 shadow-lg shadow-gray-100/50 border-2 border-transparent transition-all duration-500 cursor-pointer overflow-hidden ${domainBorders[i]}`}
+              <div
+                className={`group relative bg-white rounded-2xl p-8 shadow-lg shadow-gray-100/50 border-2 border-transparent transition-all duration-500 cursor-pointer overflow-hidden h-full ${domainBorders[i]}`}
               >
                 {/* Gradient top accent */}
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${domainColors[i]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                 {/* Emoji */}
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  className="text-5xl mb-5"
-                >
+                <div className="text-5xl mb-5">
                   {domain.emoji}
-                </motion.div>
+                </div>
 
                 {/* Name */}
-                <h3 className="text-lg font-bold text-dark group-hover:text-primary transition-colors duration-300 leading-snug">
+                <h3 className="text-lg font-bold text-dark group-hover:text-primary transition-colors duration-300 leading-snug min-h-[3.5rem]">
                   {domain.name}
                 </h3>
 
@@ -82,7 +78,7 @@ const DomainsSection = () => {
 
                 {/* Hover glow background */}
                 <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 bg-gradient-to-br ${domainColors[i]} rounded-2xl`} />
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

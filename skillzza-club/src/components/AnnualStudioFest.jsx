@@ -7,7 +7,7 @@ const festIcons = [Trophy, Presentation, Bot, Rocket, Music];
 const festColors = ['#F59E0B', '#3B82F6', '#10B981', '#EC4899', '#8B5CF6'];
 
 const AnnualStudioFest = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">

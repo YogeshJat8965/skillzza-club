@@ -10,7 +10,10 @@ const AnimatedCounter = ({ value, inView }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) {
+      setCount(0);
+      return;
+    }
     let start = 0;
     const end = value;
     const duration = 2000;
@@ -31,7 +34,7 @@ const AnimatedCounter = ({ value, inView }) => {
 };
 
 const Challenge = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   const containerVariants = {
     hidden: {},
@@ -59,7 +62,7 @@ const Challenge = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-4"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-red-100 text-red-600 text-xs font-bold uppercase tracking-widest">
+          <span className="inline-block px-6 py-2.5 rounded-full bg-red-100 text-red-600 text-sm font-bold uppercase tracking-widest">
             {challenge.label}
           </span>
         </motion.div>

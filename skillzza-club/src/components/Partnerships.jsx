@@ -4,7 +4,7 @@ import { ArrowRight, Handshake } from 'lucide-react';
 import { partnerships, images } from '../data/content';
 
 const Partnerships = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.3 });
 
   return (
     <section className="relative py-32 lg:py-40 overflow-hidden" ref={ref}>
@@ -29,8 +29,8 @@ const Partnerships = () => {
           transition={{ duration: 0.5 }}
           className="mb-6"
         >
-          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-xs font-bold uppercase tracking-widest text-white/90">
-            <Handshake size={16} />
+          <span className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full glass text-sm font-bold uppercase tracking-widest text-white/90">
+            <Handshake size={20} />
             {partnerships.label}
           </span>
         </motion.div>

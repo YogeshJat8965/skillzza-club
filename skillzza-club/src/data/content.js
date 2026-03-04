@@ -41,7 +41,7 @@ export const challenge = {
 
 export const studioCategories = {
   label: "SKILLZZA K-12 STUDIO PROGRAMME",
-  heading: "1. The Future Studios Categories",
+  heading: "The Future Studios Categories",
   subheading: "15 Future-Ready Studios spanning STEM, Humanities, Creative Arts & Life Skills:",
   studios: [
     {
@@ -139,7 +139,7 @@ export const studioCategories = {
 };
 
 export const studioModel = {
-  heading: "2. The 3-Studio-Per-Year Model",
+  heading: "The 3-Studio-Per-Year Model",
   subheading: "Focused Depth. Measurable Impact.",
   checklist: [
     "Schools select exactly 3 studios per academic year",
@@ -153,7 +153,7 @@ export const studioModel = {
 };
 
 export const implementationFramework = {
-  heading: "3. Structured Implementation Framework",
+  heading: "Structured Implementation Framework",
   subheading: "Plug-and-Play. School-Led. Scalable.",
   checklist: [
     "Hybrid-ready delivery (in-person / virtual / blended)",
@@ -166,7 +166,7 @@ export const implementationFramework = {
 };
 
 export const impactMeasurement = {
-  heading: "4. Impact Measurement Framework",
+  heading: "Impact Measurement Framework",
   subheading: "Evidence Over Certificates.",
   description: "Skillzza tracks measurable growth across:",
   metrics: [
@@ -182,7 +182,7 @@ export const impactMeasurement = {
 };
 
 export const annualFest = {
-  heading: "5. Annual Studio Fest",
+  heading: "Annual Studio Fest",
   subheading: "Showcase. Celebrate. Recognize.",
   items: [
     "Year-end studio exhibitions",

@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { ArrowRight, Sparkles, GraduationCap, Rocket, ChartNoAxesCombined, BriefcaseBusiness, Palette } from 'lucide-react';
 import { hero } from '../data/content';
 
 const Hero = () => {
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
+
   const containerVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
@@ -61,9 +64,11 @@ const Hero = () => {
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)',
         backgroundSize: '60px 60px',
       }} />
+      {/* Diagonal shimmer overlay */}
+      <div className="hero-shimmer-overlay" />
 
       {/* ─── TWO-COLUMN LAYOUT ─── */}
-      <div className="relative z-10 pt-24 sm:pt-32 lg:pt-44 xl:pt-48 pb-24 sm:pb-32 lg:pb-44 xl:pb-48 min-h-screen flex items-center">
+      <div className="relative z-10 pt-24 sm:pt-32 lg:pt-44 xl:pt-48 pb-24 sm:pb-32 lg:pb-44 xl:pb-48 min-h-screen flex items-center" ref={ref}>
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-16 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
@@ -71,16 +76,16 @@ const Hero = () => {
             <motion.div
               variants={containerVariants}
               initial="hidden"
-              animate="visible"
+              animate={inView ? "visible" : "hidden"}
               className="text-center lg:text-left order-1"
             >
               {/* Badge */}
               <motion.div variants={itemVariants} className="flex justify-center lg:justify-start mb-6 sm:mb-8">
-                <div className="inline-flex items-center gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.12] backdrop-blur-md border border-white/20 shadow-lg shadow-purple-900/10">
+                <div className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white/[0.12] backdrop-blur-md border border-white/20 shadow-lg shadow-purple-900/10">
                   <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-                    <Sparkles size={16} className="text-yellow-300" />
+                    <Sparkles size={20} className="text-yellow-300" />
                   </motion.div>
-                  <span className="text-xs sm:text-sm font-semibold text-white tracking-wider uppercase">K-12 Studio Programme</span>
+                  <span className="text-sm sm:text-base font-semibold text-white tracking-wider uppercase">K-12 Studio Programme</span>
                 </div>
               </motion.div>
 
@@ -112,7 +117,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.04, boxShadow: '0 20px 50px rgba(0,0,0,0.3)' }}
                   whileTap={{ scale: 0.97 }}
-                  className="group flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white text-dark font-bold text-sm sm:text-[15px] shadow-2xl shadow-black/20 btn-glow w-full sm:w-auto"
+                  className="group flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white text-dark font-bold text-sm sm:text-[15px] shadow-2xl shadow-black/20 btn-shimmer w-full sm:w-auto"
                 >
                   {hero.cta1}
                   <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -130,12 +135,13 @@ const Hero = () => {
             {/* ════ RIGHT: Animated Circle with 5 Cards ════ */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
               className="relative flex items-center justify-center order-2 mb-8 lg:mb-0"
             >
-              {/* Container for circle + cards */}
-              <div className="relative w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px] lg:max-w-[720px] mx-auto overflow-visible" style={{ aspectRatio: '1 / 1' }}>
+              {/* Container for circle + cards — scaled down on mobile so cards fit */}
+              {/* MOBILE SCALE: Increase scale-[0.7] for bigger mobile view */}
+              <div className="relative w-full max-w-[720px] md:max-w-[450px] lg:max-w-[720px] mx-auto overflow-visible scale-[0.7] sm:scale-[0.75] md:scale-[0.85] lg:scale-100 origin-center" style={{ aspectRatio: '1 / 1' }}>
 
                 {/* ── SVG connecting lines from center to cards ── */}
                 <svg className="absolute inset-0 w-full h-full z-10 pointer-events-none">
@@ -156,7 +162,7 @@ const Hero = () => {
 
                 {/* ── Circles (centered) ── */}
                 <div className="absolute" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-                  <div className="relative w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] lg:w-[580px] lg:h-[580px]">
+                  <div className="relative w-[380px] h-[380px] sm:w-[420px] sm:h-[420px] md:w-[540px] md:h-[540px] lg:w-[640px] lg:h-[640px]">
                     {/* Outer glow ring */}
                     <motion.div
                       animate={{ opacity: [0.1, 0.25, 0.1] }}
@@ -208,12 +214,18 @@ const Hero = () => {
                     {/* Center label */}
                     <div className="absolute inset-0 flex items-center justify-center z-20">
                       <motion.div
-                        animate={{ scale: [1, 1.02, 1] }}
+                        animate={{ scale: [1, 1.03, 1] }}
                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                        className="bg-white/[0.08] backdrop-blur-xl border border-white/15 rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3.5 lg:px-7 lg:py-4 text-center shadow-[0_0_40px_rgba(150,108,222,0.2)]"
+                        className="relative bg-white/[0.12] backdrop-blur-2xl border-2 border-white/30 rounded-3xl px-6 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7 text-center shadow-[0_0_60px_rgba(150,108,222,0.4),0_20px_40px_rgba(0,0,0,0.3)]"
                       >
-                        <p className="text-white font-bold text-xs sm:text-sm md:text-base lg:text-lg">Skillzza</p>
-                        <p className="text-white/40 text-[9px] sm:text-[10px] md:text-xs lg:text-sm">Studio Ecosystem</p>
+                        {/* Inner glow effect */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                        
+                        {/* Content */}
+                        <div className="relative">
+                          <p className="text-white font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-1">Skillzza</p>
+                          <p className="text-white/70 text-xs sm:text-sm md:text-base font-medium">Studio Ecosystem</p>
+                        </div>
                       </motion.div>
                     </div>
                     {/* Pulsing dots on outer ring */}
@@ -260,25 +272,20 @@ const Hero = () => {
                     <motion.div
                       key={idx}
                       initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                       transition={{ duration: 0.5, delay: 0.7 + idx * 0.15, type: 'spring' }}
-                      className="absolute z-30 hidden sm:block"
+                      className="absolute z-30"
                       style={cardPositions[idx]}
                     >
-                      <motion.div
-                        animate={{ y: [0, idx % 2 === 0 ? -5 : 5, 0] }}
-                        transition={{ duration: 3.4 + idx * 0.1, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.3 }}
-                        whileHover={{ scale: 1.05, y: -8 }}
-                        className="relative group"
-                      >
+                      <div className="relative group origin-center">
                         {/* Card */}
-                        <div className="flex flex-col items-center justify-center gap-2.5 backdrop-blur-xl border border-white/40 rounded-2xl px-3 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_60px_rgba(138,43,226,0.4)] transition-all duration-300 h-[115px] w-[120px] relative overflow-hidden group-hover:border-white/60" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))' }}>
+                        <div className="flex flex-col items-center justify-center gap-2.5 backdrop-blur-xl border-2 border-white/40 rounded-2xl px-3 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_60px_rgba(138,43,226,0.4)] transition-all duration-300 ease-in-out h-[115px] w-[120px] relative overflow-hidden group-hover:border-white/60 group-hover:scale-105 origin-center will-change-transform" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))' }}>
                           
                           {/* Hover gradient overlay */}
                           <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
                           
                           {/* Icon - clean without background */}
-                          <div className="relative z-10 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                          <div className="relative z-10 flex items-center justify-center">
                             <Icon className="w-8 h-8 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" style={{ color: '#F59E0B' }} strokeWidth={1.5} />
                           </div>
                           
@@ -287,7 +294,7 @@ const Hero = () => {
                             {item.text}
                           </span>
                         </div>
-                      </motion.div>
+                      </div>
                     </motion.div>
                   );
                 })}
