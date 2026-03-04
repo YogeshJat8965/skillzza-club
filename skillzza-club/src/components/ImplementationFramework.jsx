@@ -53,9 +53,9 @@ const ImplementationFramework = () => {
 
               {/* Center label */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="glass-dark rounded-2xl px-6 py-4 text-center">
-                  <p className="text-primary-light font-bold text-base">Implementation</p>
-                  <p className="text-white/60 text-sm">Framework</p>
+                <div className="glass-dark rounded-2xl px-4 py-2 lg:px-6 lg:py-4 text-center">
+                  <p className="text-primary-light font-bold text-sm lg:text-base">Implementation</p>
+                  <p className="text-white/60 text-xs lg:text-sm">Framework</p>
                 </div>
               </div>
 
@@ -86,7 +86,7 @@ const ImplementationFramework = () => {
                     >
                       <Icon size={24} style={{ color: item.color }} className="group-hover:scale-110 transition-transform duration-300" />
                     </div>
-                    <p className="text-xs text-white/70 font-medium text-center max-w-20 leading-tight -translate-x-1/2 -mt-1">
+                    <p className="text-xs text-white/70 font-medium text-center max-w-20 leading-tight -translate-x-1/2 mt-[-20px] lg:-mt-1">
                       {item.label}
                     </p>
                   </motion.div>
