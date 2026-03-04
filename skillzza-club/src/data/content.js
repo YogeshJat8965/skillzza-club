@@ -238,5 +238,5 @@ export const images = {
   studioFest: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
   partnership: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80",
   implementation: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80",
-  impact: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+  impact: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
 };
