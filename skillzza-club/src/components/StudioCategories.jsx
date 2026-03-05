@@ -31,17 +31,7 @@ const StudioCategories = () => {
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-4"
-        >
-          <span className="inline-block px-6 py-2.5 rounded-full bg-primary/10 text-primary text-sm font-bold uppercase tracking-widest">
-            {studioCategories.label}
-          </span>
-        </motion.div>
+
 
         {/* Heading */}
         <motion.h2
@@ -71,7 +61,7 @@ const StudioCategories = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer card-hover ${i >= 5 ? 'hidden sm:block' : ''}`}
+              className={`group relative rounded-2xl overflow-hidden cursor-pointer card-hover ${i >= 9 ? 'hidden' : i >= 5 ? 'hidden sm:block' : ''}`}
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">
@@ -83,7 +73,7 @@ const StudioCategories = () => {
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                
+
                 {/* Category Tag */}
                 <div className="absolute top-4 right-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${categoryBg[studio.category]}`}>
@@ -91,13 +81,7 @@ const StudioCategories = () => {
                   </span>
                 </div>
 
-                {/* Emoji Badge */}
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  className="absolute top-4 left-4 w-12 h-12 rounded-xl glass flex items-center justify-center text-2xl"
-                >
-                  {studio.emoji}
-                </motion.div>
+
               </div>
 
               {/* Content */}

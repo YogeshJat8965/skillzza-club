@@ -14,8 +14,8 @@ export const navCTAs = {
 export const hero = {
   heading: "The Future-Ready Studio Ecosystem for Progressive Schools",
   subheading: "From Exploration to Expertise — A Structured Skill Development Engine for K-12",
-  description:
-    "Skillzza K-12 Studio Programme transforms traditional school clubs into measurable, mentored, portfolio-driven learning ecosystems. Through 15 future-ready studios across AI, Robotics, Entrepreneurship, Sustainability, Finance, Media, Law, Space, and more — schools choose any 3 studios per academic year to build depth, not distraction.",
+  // description:
+  //   "Skillzza K-12 Studio Programme transforms traditional school clubs into measurable, mentored, portfolio-driven learning ecosystems. Through 15 future-ready studios across AI, Robotics, Entrepreneurship, Sustainability, Finance, Media, Law, Space, and more — schools choose any 3 studios per academic year to build depth, not distraction.",
   checklist: [
     "Structured weekly studio curriculum",
     "Real-world projects & applied learning",
@@ -42,94 +42,78 @@ export const challenge = {
 export const studioCategories = {
   label: "SKILLZZA K-12 STUDIO PROGRAMME",
   heading: "The Future Studios Categories",
-  subheading: "15 Future-Ready Studios spanning STEM, Humanities, Creative Arts & Life Skills:",
   studios: [
     {
-      emoji: "🤖",
       name: "AI & Deep Tech",
       category: "STEM",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
     },
     {
-      emoji: "⚙️",
       name: "Robotics & Engineering",
       category: "STEM",
       image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80",
     },
     {
-      emoji: "💼",
       name: "Entrepreneurship & Leadership",
       category: "Humanities",
       image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80",
     },
     {
-      emoji: "🌱",
       name: "Sustainability & Climate",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=600&q=80",
     },
     {
-      emoji: "💰",
       name: "Financial Literacy",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
     },
     {
-      emoji: "🔗",
       name: "Blockchain & FinTech",
       category: "STEM",
       image: "https://images.yourstory.com/production/document_image/mystoryimage/273wgk44-Blockchain-1.jpg?fm=png&auto=format&w=800&blur=500",
     },
     {
-      emoji: "📰",
       name: "Media & Journalism",
       category: "Creative Arts",
       image: "https://www.shu.ac.uk/-/media/home/olp/subject-area-images/media-pr-and-journalism.jpg?h=394&iar=0&w=700&sc_lang=en&hash=D801334AF4F599AADD8DFA53EEA52C81",
     },
     {
-      emoji: "🌍",
       name: "Global Affairs & Diplomacy",
       category: "Humanities",
       image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
     },
     {
-      emoji: "⚖️",
       name: "Law & Cyber Security",
       category: "Humanities",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
     },
     {
-      emoji: "🎮",
       name: "Animation & Game Design",
       category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&q=80",
     },
     {
-      emoji: "🎨",
       name: "Creative Arts",
       category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80",
     },
     {
-      emoji: "🪔",
       name: "Indian Heritage",
       category: "Humanities",
       image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=80",
     },
     {
-      emoji: "🤝",
       name: "Social Impact",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80",
     },
     {
-      emoji: "🧘",
       name: "Mindfulness & Life Skills",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
     },
     {
-      emoji: "🚀",
       name: "Space & Astronomy",
       category: "STEM",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
@@ -195,12 +179,12 @@ export const annualFest = {
 };
 
 export const domainsSection = {
-  heading: "Elevate Your Institution with Structured Studio Learning",
-  label: "Our Domains",
+  heading: "Our Domains",
+  label: "Elevate Your Institution with Structured Studio Learning",
   domains: [
     { emoji: "🧠", name: "Artificial Intelligence & Robotics" },
     { emoji: "💼", name: "Entrepreneurship & Business Intelligence" },
-    { emoji: "🌱", name: "Sustainability &  Climate Leadership" },
+    { emoji: "🌱", name: "Sustainability & Climate Leadership" },
     { emoji: "💰", name: "Financial & Economic Literacy" },
     { emoji: "🌍", name: "Global Affairs & Policy" },
     { emoji: "🎥", name: "Creative & Digital Media" },

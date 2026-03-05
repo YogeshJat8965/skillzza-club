@@ -40,7 +40,7 @@ const Partnerships = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-white mb-10 leading-tight"
+          className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-10 leading-tight whitespace-nowrap"
         >
           {partnerships.heading}
         </motion.h2>

@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState, useEffect } from 'react';
-import { AlertTriangle, Target, BarChart3, Globe2, TrendingUp } from 'lucide-react';
+import { GraduationCap, Compass, ChartNoAxesCombined, Globe2, Rocket } from 'lucide-react';
 import { challenge } from '../data/content';
 
-const icons = [AlertTriangle, Target, BarChart3, Globe2, TrendingUp];
+const icons = [GraduationCap, Compass, ChartNoAxesCombined, Globe2, Rocket];
 
 const AnimatedCounter = ({ value, inView }) => {
   const [count, setCount] = useState(0);
@@ -82,7 +82,7 @@ const Challenge = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="flex flex-wrap justify-center gap-6 lg:gap-8"
+          className="flex flex-wrap justify-center gap-8 lg:gap-10"
         >
           {challenge.stats.map((stat, i) => {
             const Icon = icons[i];
@@ -90,51 +90,22 @@ const Challenge = () => {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                className="relative rounded-2xl bg-white p-8 shadow-lg shadow-gray-200/50 card-hover border border-gray-100 group overflow-hidden w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-22px)]"
+                className="flex flex-col items-center text-center group w-full sm:w-[calc(50%-16px)] lg:w-[calc(20%-32px)] min-w-[160px]"
               >
-                {/* Accent bar */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
-                  style={{ backgroundColor: stat.color }}
-                />
-
                 {/* Icon */}
-                <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: stat.color + '15' }}
-                >
-                  <Icon size={24} style={{ color: stat.color }} />
+                <div className="flex items-center justify-center mb-4">
+                  <Icon size={48} className="text-[#7C3AED]" strokeWidth={1.5} />
                 </div>
 
                 {/* Counter */}
-                <div
-                  className="text-5xl font-black mb-3"
-                  style={{ color: stat.color }}
-                >
+                <div className="text-4xl sm:text-5xl font-black text-[#7C3AED] mb-2">
                   <AnimatedCounter value={stat.value} inView={inView} />
                 </div>
 
                 {/* Title */}
-                <p className="text-gray-700 font-semibold text-base leading-snug">
+                <p className="text-gray-600 font-medium text-sm sm:text-[15px] leading-snug max-w-[200px]">
                   {stat.title}
                 </p>
-
-                {/* Progress Bar */}
-                <div className="mt-5 w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${stat.value}%` } : { width: 0 }}
-                    transition={{ duration: 1.5, delay: 0.3 + i * 0.15, ease: 'easeOut' }}
-                    className="h-full rounded-full"
-                    style={{ backgroundColor: stat.color }}
-                  />
-                </div>
-
-                {/* Hover glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl"
-                  style={{ backgroundColor: stat.color }}
-                />
               </motion.div>
             );
           })}

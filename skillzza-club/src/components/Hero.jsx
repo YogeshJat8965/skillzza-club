@@ -29,22 +29,22 @@ const Hero = () => {
   const circleRadius = 290;
   const cardOrbitMobile = 185; // Closer for mobile
   const cardOrbitDesktop = 245; // Wider distance for desktop
-  
+
   // Pentagon angles: evenly distributed starting from top
   const pentagonAngles = [-90, -18, 54, 126, 198]; // Standard pentagon distribution
-  
+
   // Calculate positions for both mobile and desktop
   const cardPositions = pentagonAngles.map((deg) => {
     const rad = (deg * Math.PI) / 180;
-    
+
     // Mobile positions
     const xMobile = Math.round(cardOrbitMobile * Math.cos(rad));
     const yMobile = Math.round(cardOrbitMobile * Math.sin(rad));
-    
+
     // Desktop positions
     const xDesktop = Math.round(cardOrbitDesktop * Math.cos(rad));
     const yDesktop = Math.round(cardOrbitDesktop * Math.sin(rad));
-    
+
     // Offset cards: -55px left, -45px upward
     return {
       '--mobile-left': `${xMobile - 55}px`,
@@ -226,15 +226,12 @@ const Hero = () => {
                       <motion.div
                         animate={{ scale: [1, 1.03, 1] }}
                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                        className="relative bg-white/[0.12] backdrop-blur-2xl border-2 border-white/30 rounded-3xl px-6 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7 text-center shadow-[0_0_60px_rgba(150,108,222,0.4),0_20px_40px_rgba(0,0,0,0.3)]"
+                        className="relative bg-white rounded-3xl px-6 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7 text-center shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]"
                       >
-                        {/* Inner glow effect */}
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-                        
                         {/* Content */}
                         <div className="relative">
-                          <p className="text-white font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-1">Skillzza</p>
-                          <p className="text-white/70 text-xs sm:text-sm md:text-base font-medium">Studio Ecosystem</p>
+                          <p className="text-gray-800 font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-1">Skillzza</p>
+                          <p className="text-gray-500 text-xs sm:text-sm md:text-base font-medium">Studio Ecosystem</p>
                         </div>
                       </motion.div>
                     </div>
@@ -289,18 +286,15 @@ const Hero = () => {
                     >
                       <div className="relative group origin-center">
                         {/* Card */}
-                        <div className="flex flex-col items-center justify-center gap-2.5 backdrop-blur-xl border-2 border-white/40 rounded-2xl px-3 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_15px_60px_rgba(138,43,226,0.4)] transition-all duration-300 ease-in-out h-[115px] w-[120px] relative overflow-hidden group-hover:border-white/60 group-hover:scale-105 origin-center will-change-transform" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))' }}>
-                          
-                          {/* Hover gradient overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-                          
-                          {/* Icon - clean without background */}
+                        <div className="flex flex-col items-center justify-center gap-2.5 bg-white rounded-2xl px-3 py-4 shadow-[0_4px_20px_rgba(0,0,0,0.1),0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(150,108,222,0.25)] transition-all duration-300 ease-in-out h-[115px] w-[120px] relative overflow-hidden group-hover:scale-105 origin-center will-change-transform">
+
+                          {/* Icon */}
                           <div className="relative z-10 flex items-center justify-center">
-                            <Icon className="w-8 h-8 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" style={{ color: '#F59E0B' }} strokeWidth={1.5} />
+                            <Icon className="w-8 h-8" style={{ color: '#7C3AED' }} strokeWidth={1.8} />
                           </div>
-                          
+
                           {/* Text */}
-                          <span className="relative z-10 text-white font-medium text-[11px] leading-[1.4] text-center whitespace-pre-line drop-shadow-sm px-1">
+                          <span className="relative z-10 text-gray-700 font-semibold text-[11px] leading-[1.4] text-center whitespace-pre-line px-1">
                             {item.text}
                           </span>
                         </div>
@@ -319,7 +313,7 @@ const Hero = () => {
       {/* Smooth curve transition at the bottom */}
       <div className="absolute bottom-0 left-0 right-0 z-[5]" style={{ height: '120px' }}>
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-          <path d="M0,120 L0,40 Q360,0 720,40 T1440,40 L1440,120 Z" fill="#F0EDF8"/>
+          <path d="M0,120 L0,40 Q360,0 720,40 T1440,40 L1440,120 Z" fill="#F0EDF8" />
         </svg>
       </div>
     </section>
