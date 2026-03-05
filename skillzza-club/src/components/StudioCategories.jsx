@@ -1,7 +1,10 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronUp } from 'lucide-react';
 import { studioCategories } from '../data/content';
+
+const INITIAL_VISIBLE = 6;
 
 const categoryColors = {
   STEM: 'from-blue-500 to-cyan-400',
@@ -17,8 +20,51 @@ const categoryBg = {
   'Life Skills': 'bg-green-500/20 text-green-300',
 };
 
+const StudioCard = ({ studio, i, inView }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={inView ? { opacity: 1, y: 0 } : {}}
+    transition={{ duration: 0.5, delay: 0.1 + (i % 3) * 0.08 }}
+    className="group relative rounded-2xl overflow-hidden cursor-pointer card-hover"
+  >
+    {/* Image */}
+    <div className="relative h-56 overflow-hidden">
+      <img
+        src={studio.image}
+        alt={studio.name}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        loading="lazy"
+      />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+      {/* Category Tag */}
+      <div className="absolute top-4 right-4">
+        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${categoryBg[studio.category]}`}>
+          {studio.category}
+        </span>
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="absolute bottom-0 left-0 right-0 p-6">
+      <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary-light transition-colors duration-300">
+        {studio.name}
+      </h3>
+      <div className={`w-12 h-1 rounded-full bg-gradient-to-r ${categoryColors[studio.category]} transform origin-left transition-all duration-500 group-hover:w-20`} />
+    </div>
+
+    {/* Hover border glow */}
+    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500" />
+  </motion.div>
+);
+
 const StudioCategories = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.1 });
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleStudios = studioCategories.studios.slice(0, INITIAL_VISIBLE);
+  const hiddenStudios = studioCategories.studios.slice(INITIAL_VISIBLE);
 
   return (
     <section id="studios" className="relative py-24 lg:py-32 bg-[#D8D4FD] overflow-hidden" ref={ref}>
@@ -31,7 +77,6 @@ const StudioCategories = () => {
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
 
         {/* Heading */}
         <motion.h2
@@ -55,47 +100,25 @@ const StudioCategories = () => {
 
         {/* Studios Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {studioCategories.studios.map((studio, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer card-hover ${i >= 9 ? 'hidden' : i >= 5 ? 'hidden sm:block' : ''}`}
-            >
-              {/* Image */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={studio.image}
-                  alt={studio.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-
-                {/* Category Tag */}
-                <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${categoryBg[studio.category]}`}>
-                    {studio.category}
-                  </span>
-                </div>
-
-
-              </div>
-
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary-light transition-colors duration-300">
-                  {studio.name}
-                </h3>
-                <div className={`w-12 h-1 rounded-full bg-gradient-to-r ${categoryColors[studio.category]} transform origin-left transition-all duration-500 group-hover:w-20`} />
-              </div>
-
-              {/* Hover border glow */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500" />
-            </motion.div>
+          {/* Always-visible cards */}
+          {visibleStudios.map((studio, i) => (
+            <StudioCard key={i} studio={studio} i={i} inView={inView} />
           ))}
+
+          {/* Expandable cards */}
+          <AnimatePresence>
+            {showAll && hiddenStudios.map((studio, i) => (
+              <motion.div
+                key={`hidden-${i}`}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+              >
+                <StudioCard studio={studio} i={i} inView={true} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         {/* CTA */}
@@ -108,10 +131,15 @@ const StudioCategories = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setShowAll(!showAll)}
             className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white font-bold text-base shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow duration-300 btn-glow"
           >
-            {studioCategories.cta}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            {showAll ? 'Show Less' : studioCategories.cta}
+            {showAll ? (
+              <ChevronUp size={18} className="transition-transform" />
+            ) : (
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            )}
           </motion.button>
         </motion.div>
       </div>

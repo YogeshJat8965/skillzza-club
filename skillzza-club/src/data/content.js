@@ -169,11 +169,11 @@ export const annualFest = {
   heading: "Annual Studio Fest",
   subheading: "Showcase. Celebrate. Recognize.",
   items: [
-    "Year-end studio exhibitions",
-    "Capstone presentations",
-    "Robotics demos & AI prototypes",
-    "Startup pitch competitions",
-    "Cultural & media showcases",
+    { name: "Year-end studio exhibitions", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" },
+    { name: "Capstone presentations", image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80" },
+    { name: "Robotics demos & AI prototypes", image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" },
+    { name: "Startup pitch competitions", image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80" },
+    { name: "Cultural & media showcases", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" },
   ],
   tagline: "A structured celebration of student innovation and applied learning.",
 };

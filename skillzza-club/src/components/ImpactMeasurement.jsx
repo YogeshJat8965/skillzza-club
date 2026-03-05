@@ -1,23 +1,16 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState, useEffect } from 'react';
-import {
-  Brain, Wrench, Lightbulb, Heart, School, FolderOpen, Calendar, BarChart3,
-} from 'lucide-react';
+import { GraduationCap, BarChart3 } from 'lucide-react';
 import { impactMeasurement } from '../data/content';
 
-const metricIcons = [Brain, Wrench, Lightbulb, Heart, School, FolderOpen, Calendar, BarChart3];
 
-const metricColors = [
-  '#3B82F6', '#F59E0B', '#EC4899', '#10B981',
-  '#8B5CF6', '#06B6D4', '#F97316', '#976EDF',
-];
 
 const dashboardSkills = [
-  { name: 'AI & Deep Tech', value: 85, color: '#3B82F6' },
-  { name: 'Robotics', value: 72, color: '#10B981' },
-  { name: 'Entrepreneurship', value: 90, color: '#F59E0B' },
-  { name: 'Creative Arts', value: 68, color: '#EC4899' },
+  { name: 'AI & Deep Tech', value: 85, color: '#8B5CF6' },
+  { name: 'Robotics', value: 72, color: '#8B5CF6' },
+  { name: 'Entrepreneurship', value: 90, color: '#8B5CF6' },
+  { name: 'Creative Arts', value: 68, color: '#8B5CF6' },
   { name: 'Leadership', value: 78, color: '#8B5CF6' },
 ];
 
@@ -45,30 +38,28 @@ const ImpactMeasurement = () => {
             <p className="text-xl font-semibold text-primary mb-3">{impactMeasurement.subheading}</p>
             <p className="text-gray-600 text-base mb-8">{impactMeasurement.description}</p>
 
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {impactMeasurement.metrics.map((metric, i) => {
-                const Icon = metricIcons[i];
-                return (
-                  <motion.div
+            {/* Scrolling Metrics - single column */}
+            <div className="overflow-hidden h-[300px] relative">
+              {/* Fade masks */}
+              <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-primary-50 to-transparent z-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-primary-50 to-transparent z-10 pointer-events-none" />
+
+              <motion.div
+                animate={{ y: ['-50%', '0%'] }}
+                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+                className="flex flex-col gap-3"
+              >
+                {[...impactMeasurement.metrics, ...impactMeasurement.metrics].map((metric, i) => (
+                  <div
                     key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.3 + i * 0.08 }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100 card-hover group"
+                    className="p-4 rounded-xl bg-white shadow-sm border border-gray-100 flex-shrink-0"
                   >
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: metricColors[i] + '15' }}
-                    >
-                      <Icon size={18} style={{ color: metricColors[i] }} />
-                    </div>
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-dark transition-colors">
+                    <span className="text-sm font-medium text-gray-700">
                       {metric}
                     </span>
-                  </motion.div>
-                );
-              })}
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
 
@@ -89,7 +80,7 @@ const ImpactMeasurement = () => {
               <div className="bg-gradient-to-r from-primary to-primary-dark p-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                    <span className="text-white text-xl">👩‍🎓</span>
+                    <GraduationCap size={24} className="text-white" />
                   </div>
                   <div>
                     <h4 className="text-white font-bold text-lg">Student Portfolio</h4>
@@ -130,7 +121,7 @@ const ImpactMeasurement = () => {
                 <h5 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
                   Achievements
                 </h5>
-                <div className="flex gap-3">
+                {/* <div className="flex gap-3">
                   {['🏆', '🎯', '⭐', '🚀'].map((badge, i) => (
                     <motion.div
                       key={i}
@@ -142,7 +133,7 @@ const ImpactMeasurement = () => {
                       {badge}
                     </motion.div>
                   ))}
-                </div>
+                </div> */}
 
                 {/* Innovation Score */}
                 <div className="mt-6 flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-primary-50 to-secondary-light">
@@ -181,7 +172,7 @@ const ImpactMeasurement = () => {
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               className="absolute -top-4 right-2 sm:-right-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-accent-amber to-yellow-400 shadow-lg flex items-center justify-center"
             >
-              <span className="text-3xl">📊</span>
+              <BarChart3 size={28} className="text-white" />
             </motion.div>
           </motion.div>
         </div>

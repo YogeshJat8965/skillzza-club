@@ -1,28 +1,76 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { CheckCircle2, ArrowRight, Monitor, Users, BookText, ClipboardList, Heart } from 'lucide-react';
-import { implementationFramework, images } from '../data/content';
+import { ArrowRight, Monitor, Users, BookText, ClipboardList, Heart } from 'lucide-react';
+import { implementationFramework } from '../data/content';
+
+const ICON_COLOR = '#7C3AED';
 
 const wheelItems = [
-  { icon: Monitor, label: 'Hybrid Delivery', color: '#3B82F6' },
-  { icon: Users, label: 'Facilitator Model', color: '#F59E0B' },
-  { icon: BookText, label: 'Session Plans', color: '#10B981' },
-  { icon: ClipboardList, label: 'Workbooks & Rubrics', color: '#F43F5E' },
-  { icon: Heart, label: 'Parent Integration', color: '#8B5CF6' },
+  {
+    icon: Monitor,
+    label: 'Hybrid Delivery',
+    desc: 'Hybrid-ready delivery (in-person / virtual / blended) that adapts to every school\'s infrastructure and scheduling needs.',
+  },
+  {
+    icon: Users,
+    label: 'Facilitator Model',
+    desc: 'Studio Facilitator + School Champion model ensuring expert-led sessions with on-ground school coordination.',
+  },
+  {
+    icon: BookText,
+    label: 'Session Plans',
+    desc: 'Ready-to-run session plans & facilitator guides with structured weekly curriculum for seamless delivery.',
+  },
+  {
+    icon: ClipboardList,
+    label: 'Workbooks & Rubrics',
+    desc: 'Student workbooks & assessment rubrics with clear skill-tracking matrices and evaluation frameworks.',
+  },
+  {
+    icon: Heart,
+    label: 'Parent Integration',
+    desc: 'Parent integration & showcase participation with structured mid-year and annual exhibitions.',
+  },
 ];
 
 const ImplementationFramework = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const timerRef = useRef(null);
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % wheelItems.length);
+    }, 2500);
+  }, []);
+
+  useEffect(() => {
+    if (!inView) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+    startTimer();
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [inView, startTimer]);
+
+  const handleCircleClick = (index) => {
+    setActiveIndex(index);
+    startTimer();
+  };
+
+  const activeItem = wheelItems[activeIndex];
+  const ActiveIcon = activeItem.icon;
 
   return (
-    <section id="implementation" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-dark via-dark-light to-dark">
-      {/* Background blobs */}
-      <div className="absolute top-10 right-10 w-80 h-80 bg-primary/10 blob animate-float" />
-      <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-600/10 blob animate-float-slow" />
-
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: 'linear-gradient(#976EDF 1px, transparent 1px), linear-gradient(90deg, #976EDF 1px, transparent 1px)',
+    <section id="implementation" className="relative py-24 lg:py-32 overflow-hidden bg-[#D8D4FD]">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 blob animate-float-slow" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/10 blob animate-float" />
+      {/* Grid pattern matching Hero section */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: 'linear-gradient(rgba(124,58,237,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.08) 1px, transparent 1px)',
         backgroundSize: '60px 60px'
       }} />
 
@@ -41,21 +89,33 @@ const ImplementationFramework = () => {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full border-2 border-dashed border-primary/20"
+                className="absolute inset-0 rounded-full border-2 border-dashed border-primary/25"
               />
-              
+
               {/* Inner ring */}
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-8 rounded-full border border-primary/10"
+                className="absolute inset-8 rounded-full border border-primary/15"
               />
 
-              {/* Center label */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="glass-dark rounded-2xl px-4 py-2 lg:px-6 lg:py-4 text-center">
-                  <p className="text-primary-light font-bold text-sm lg:text-base">Implementation</p>
-                  <p className="text-white/60 text-xs lg:text-sm">Framework</p>
+              {/* Center circle label — cycles through active item */}
+              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-white flex items-center justify-center shadow-lg shadow-primary/10 border-[3px] border-primary/20">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeIndex}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-center px-2"
+                    >
+                      <p className="font-bold text-xs sm:text-sm lg:text-base text-primary leading-tight">
+                        {activeItem.label}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
 
@@ -63,32 +123,46 @@ const ImplementationFramework = () => {
               {wheelItems.map((item, i) => {
                 const angle = (i * 360) / wheelItems.length - 90;
                 const radian = (angle * Math.PI) / 180;
-                const radius = 50; // match the dashed circle edge
-                const x = 50 + radius * Math.cos(radian);
-                const y = 50 + radius * Math.sin(radian);
+                const radius = 50;
+                const x = 51 + radius * Math.cos(radian);
+                const y = 51 + radius * Math.sin(radian);
                 const Icon = item.icon;
+                const isActive = i === activeIndex;
 
                 return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 + i * 0.15, type: 'spring' }}
-                    className="absolute flex flex-col items-center"
+                    transition={{
+                      opacity: { duration: 0.5, delay: 0.4 + i * 0.15 },
+                    }}
+                    className="absolute"
                     style={{
                       left: `${x}%`,
                       top: `${y}%`,
+                      zIndex: isActive ? 30 : 1,
                     }}
                   >
-                    <div
-                      className="group w-16 h-16 rounded-xl glass flex items-center justify-center shadow-lg cursor-pointer transition-shadow duration-300 -translate-x-1/2 -translate-y-1/2 border"
-                      style={{ borderColor: item.color + '40' }}
+                    <button
+                      onClick={() => handleCircleClick(i)}
+                      className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center cursor-pointer -translate-x-1/2 -translate-y-1/2 border-[3px] transition-all duration-700 ease-in-out outline-none"
+                      style={{
+                        backgroundColor: isActive ? ICON_COLOR : '#ffffff',
+                        borderColor: ICON_COLOR,
+                        boxShadow: isActive ? `0 8px 24px ${ICON_COLOR}40` : '0 4px 12px rgba(0,0,0,0.06)',
+                      }}
                     >
-                      <Icon size={24} style={{ color: item.color }} className="group-hover:scale-110 transition-transform duration-300" />
-                    </div>
-                    <p className="text-xs text-white/70 font-medium text-center max-w-20 leading-tight -translate-x-1/2 mt-[-20px] lg:-mt-1">
-                      {item.label}
-                    </p>
+                      <Icon
+                        className="transition-all duration-700 ease-in-out"
+                        style={{
+                          color: isActive ? '#ffffff' : ICON_COLOR,
+                          width: isActive ? 40 : 26,
+                          height: isActive ? 40 : 26,
+                        }}
+                        strokeWidth={1.8}
+                      />
+                    </button>
                   </motion.div>
                 );
               })}
@@ -102,32 +176,56 @@ const ImplementationFramework = () => {
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
           >
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-3 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark mb-3 leading-tight">
               {implementationFramework.heading}
             </h2>
-            <p className="text-xl font-semibold text-primary-light mb-8">
+            <p className="text-xl font-semibold text-primary mb-8">
               {implementationFramework.subheading}
             </p>
 
-            {/* Checklist */}
-            <div className="space-y-4 mb-10">
-              {implementationFramework.checklist.map((item, i) => (
+            {/* Dynamic description card */}
+            <div className="relative mb-10 min-h-[180px]">
+              <AnimatePresence mode="wait">
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ delay: 0.6 + i * 0.1 }}
-                  className="flex items-start gap-3 group"
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  className="bg-white rounded-2xl p-6 shadow-xl shadow-primary/8 border-l-4"
+                  style={{ borderLeftColor: ICON_COLOR }}
                 >
-                  <CheckCircle2
-                    size={22}
-                    className="text-green-400 flex-shrink-0 mt-0.5 transition-transform"
-                  />
-                  <span className="text-white/80 text-base leading-relaxed group-hover:text-white transition-colors">
-                    {item}
-                  </span>
+                  {/* Card header with icon and label */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: ICON_COLOR + '15' }}
+                    >
+                      <ActiveIcon size={24} style={{ color: ICON_COLOR }} />
+                    </div>
+                    <h3 className="text-lg font-bold text-dark">{activeItem.label}</h3>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-base leading-relaxed">
+                    {activeItem.desc}
+                  </p>
+
+                  {/* Progress dots */}
+                  <div className="flex items-center gap-2 mt-5">
+                    {wheelItems.map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-1.5 rounded-full transition-all duration-300"
+                        style={{
+                          width: i === activeIndex ? '24px' : '8px',
+                          backgroundColor: i === activeIndex ? ICON_COLOR : 'rgba(124,58,237,0.15)',
+                        }}
+                      />
+                    ))}
+                  </div>
                 </motion.div>
-              ))}
+              </AnimatePresence>
             </div>
 
             {/* CTA */}
