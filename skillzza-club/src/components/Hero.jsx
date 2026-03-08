@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowRight, Sparkles, GraduationCap, Rocket, ChartNoAxesCombined, BriefcaseBusiness, Palette } from 'lucide-react';
+import { ArrowRight, Sparkles, BrainCircuit, Bot, Lightbulb, Leaf, Landmark, Tv, Scale, Rocket } from 'lucide-react';
 import { hero } from '../data/content';
 
 const Hero = () => {
@@ -15,53 +15,21 @@ const Hero = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
   };
 
-  const labelData = [
-    { icon: GraduationCap, text: 'Structured Weekly\nStudio Curriculum', color: 'bg-violet-500/15 text-violet-300' },
-    { icon: Rocket, text: 'Real-World Projects\n& Applied Learning', color: 'bg-amber-500/15 text-amber-300' },
-    { icon: ChartNoAxesCombined, text: 'Measurable Skill\nAssessment Framework', color: 'bg-emerald-500/15 text-emerald-300' },
-    { icon: BriefcaseBusiness, text: 'Digital Student\nPortfolio Creation', color: 'bg-sky-500/15 text-sky-300' },
-    { icon: Palette, text: 'Career Pathway\nAlignment', color: 'bg-rose-500/15 text-rose-300' },
+  const ICON_BORDER = '#6222C3';
+
+  const domainIcons = [
+    { icon: BrainCircuit, label: 'AI' },
+    { icon: Bot, label: 'Robotics' },
+    { icon: Lightbulb, label: 'Entrepreneurship' },
+    { icon: Leaf, label: 'Sustainability' },
+    { icon: Landmark, label: 'Finance' },
+    { icon: Tv, label: 'Media' },
+    { icon: Scale, label: 'Law' },
+    { icon: Rocket, label: 'Space' },
   ];
 
-  // Pentagon positions for floating cards around the circle
-  // Circle is responsive: sm=300px, md=400px, lg=580px
-  // Using average for better alignment across breakpoints
-  const circleRadius = 290;
-  const cardOrbitMobile = 185; // Closer for mobile
-  const cardOrbitDesktop = 245; // Wider distance for desktop
-
-  // Pentagon angles: evenly distributed starting from top
-  const pentagonAngles = [-90, -18, 54, 126, 198]; // Standard pentagon distribution
-
-  // Calculate positions for both mobile and desktop
-  const cardPositions = pentagonAngles.map((deg) => {
-    const rad = (deg * Math.PI) / 180;
-
-    // Mobile positions
-    const xMobile = Math.round(cardOrbitMobile * Math.cos(rad));
-    const yMobile = Math.round(cardOrbitMobile * Math.sin(rad));
-
-    // Desktop positions
-    const xDesktop = Math.round(cardOrbitDesktop * Math.cos(rad));
-    const yDesktop = Math.round(cardOrbitDesktop * Math.sin(rad));
-
-    // Offset cards: -55px left, -45px upward
-    return {
-      '--mobile-left': `${xMobile - 55}px`,
-      '--mobile-top': `${yMobile - 45}px`,
-      '--desktop-left': `${xDesktop - 55}px`,
-      '--desktop-top': `${yDesktop - 45}px`,
-    };
-  });
-
-  // Line endpoints from center toward each card
-  const lineEndpoints = pentagonAngles.map((deg) => {
-    const rad = (deg * Math.PI) / 180;
-    const lineRadius = 230; // Line extends to ~80% of circle radius
-    const x = 54 + (lineRadius / 360) * 100 * Math.cos(rad);
-    const y = 53 + (lineRadius / 360) * 100 * Math.sin(rad);
-    return { x2: x, y2: y };
-  });
+  // Octagon angles: 8 icons evenly distributed starting from top
+  const iconAngles = domainIcons.map((_, i) => (i * 360) / 8 - 90);
 
   return (
     <section className="relative overflow-hidden">
@@ -142,33 +110,14 @@ const Hero = () => {
               </motion.div>
             </motion.div>
 
-            {/* ════ RIGHT: Animated Circle with 5 Cards ════ */}
+            {/* ════ RIGHT: Animated Circle with Domain Icons ════ */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
               className="relative flex items-center justify-center order-2 mb-26 lg:mb-0"
             >
-              {/* Container for circle + cards — scaled down on mobile so cards fit */}
-              {/* MOBILE SCALE: Increase scale-[0.7] for bigger mobile view */}
               <div className="relative w-full max-w-[720px] md:max-w-[450px] lg:max-w-[720px] mx-auto overflow-visible scale-[0.7] sm:scale-[0.75] md:scale-[0.85] lg:scale-100 origin-center" style={{ aspectRatio: '1 / 1' }}>
-
-                {/* ── SVG connecting lines from center to cards ── */}
-                <svg className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-                  {lineEndpoints.map((pt, idx) => (
-                    <motion.line
-                      key={idx}
-                      x1="50%" y1="50%"
-                      x2={`${pt.x2}%`} y2={`${pt.y2}%`}
-                      stroke="rgba(255,255,255,0.08)"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: 1 }}
-                      transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                    />
-                  ))}
-                </svg>
 
                 {/* ── Circles (centered) ── */}
                 <div className="absolute" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -185,34 +134,30 @@ const Hero = () => {
                       transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-0 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      {/* Rotating marker on Ring 1 */}
                       <div className="absolute w-2 h-2 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.6)]" style={{ left: '50%', top: '0%', transform: 'translate(-50%, -50%)' }} />
                     </motion.div>
-                    {/* Ring 2 — Second ring, anti-clockwise, same style as outer */}
+                    {/* Ring 2 — anti-clockwise */}
                     <motion.div
                       animate={{ rotate: -360 }}
                       transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-4 sm:inset-5 md:inset-6 lg:inset-8 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      {/* Rotating marker on Ring 2 */}
                       <div className="absolute w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_8px_rgba(251,191,36,0.7)]" style={{ left: '100%', top: '50%', transform: 'translate(-50%, -50%)' }} />
                     </motion.div>
-                    {/* Ring 3 — Third ring, clockwise, same style as outer */}
+                    {/* Ring 3 — clockwise */}
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 70, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-8 sm:inset-10 md:inset-12 lg:inset-16 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      {/* Rotating marker on Ring 3 */}
                       <div className="absolute w-2 h-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_rgba(34,211,238,0.7)]" style={{ left: '50%', top: '100%', transform: 'translate(-50%, -50%)' }} />
                     </motion.div>
-                    {/* Ring 4 — Fourth ring, anti-clockwise, same style as outer */}
+                    {/* Ring 4 — anti-clockwise */}
                     <motion.div
                       animate={{ rotate: -360 }}
                       transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-12 sm:inset-15 md:inset-18 lg:inset-24 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      {/* Rotating marker on Ring 4 */}
                       <div className="absolute w-2 h-2 rounded-full bg-pink-400/80 shadow-[0_0_8px_rgba(244,114,182,0.7)]" style={{ left: '0%', top: '50%', transform: 'translate(-50%, -50%)' }} />
                     </motion.div>
                     {/* Inner glow */}
@@ -228,7 +173,6 @@ const Hero = () => {
                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                         className="relative bg-white rounded-3xl px-6 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7 text-center shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]"
                       >
-                        {/* Content */}
                         <div className="relative">
                           <p className="text-gray-800 font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-1">Skillzza</p>
                           <p className="text-gray-500 text-xs sm:text-sm md:text-base font-medium">Studio Ecosystem</p>
@@ -236,13 +180,13 @@ const Hero = () => {
                       </motion.div>
                     </div>
                     {/* Pulsing dots on outer ring */}
-                    {[0, 72, 144, 216, 288].map((deg, idx) => {
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
                       const r = (deg * Math.PI) / 180;
                       return (
                         <motion.div
                           key={idx}
                           animate={{ opacity: [0.15, 0.6, 0.15], scale: [0.8, 1.2, 0.8] }}
-                          transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.5 }}
+                          transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.3 }}
                           className="absolute w-1.5 h-1.5 rounded-full bg-white/50"
                           style={{
                             left: `${50 + 50 * Math.cos(r)}%`,
@@ -252,53 +196,57 @@ const Hero = () => {
                         />
                       );
                     })}
-                    {/* Dots on second ring */}
-                    {[36, 108, 180, 252, 324].map((deg, idx) => {
-                      const r = (deg * Math.PI) / 180;
-                      return (
-                        <motion.div
-                          key={`r2-${idx}`}
-                          animate={{ opacity: [0.1, 0.45, 0.1] }}
-                          transition={{ duration: 3, repeat: Infinity, delay: idx * 0.6 }}
-                          className="absolute w-1 h-1 rounded-full bg-white/35"
-                          style={{
-                            left: `${50 + 43 * Math.cos(r)}%`,
-                            top: `${50 + 43 * Math.sin(r)}%`,
-                            transform: 'translate(-50%, -50%)',
-                          }}
-                        />
-                      );
-                    })}
                   </div>
                 </div>
 
-                {/* ── 5 Floating Cards (pentagon layout) ── */}
-                {labelData.map((item, idx) => {
+                {/* ── 8 Animated Domain Icons (octagon layout) ── */}
+                {domainIcons.map((item, idx) => {
                   const Icon = item.icon;
+                  const angleDeg = iconAngles[idx];
+                  const rad = (angleDeg * Math.PI) / 180;
+                  const orbitPct = 44; // % from center — aligns with outermost ring
+                  const cx = 50 + orbitPct * Math.cos(rad);
+                  const cy = 50 + orbitPct * Math.sin(rad);
+
                   return (
                     <motion.div
                       key={idx}
                       initial={{ opacity: 0, scale: 0 }}
                       animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                      transition={{ duration: 0.5, delay: 0.7 + idx * 0.15, type: 'spring' }}
-                      className="absolute z-30 hero-card-position"
-                      style={cardPositions[idx]}
+                      transition={{ duration: 0.5, delay: 0.6 + idx * 0.1, type: 'spring', stiffness: 200 }}
+                      className="absolute z-30"
+                      style={{
+                        left: `${cx}%`,
+                        top: `${cy}%`,
+                        transform: 'translate(-50%, -50%)',
+                      }}
                     >
-                      <div className="relative group origin-center">
-                        {/* Card */}
-                        <div className="flex flex-col items-center justify-center gap-2.5 bg-white rounded-2xl px-3 py-4 shadow-[0_4px_20px_rgba(0,0,0,0.1),0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(150,108,222,0.25)] transition-all duration-300 ease-in-out h-[115px] w-[120px] relative overflow-hidden group-hover:scale-105 origin-center will-change-transform">
-
-                          {/* Icon */}
-                          <div className="relative z-10 flex items-center justify-center">
-                            <Icon className="w-8 h-8" style={{ color: '#7C3AED' }} strokeWidth={1.8} />
-                          </div>
-
-                          {/* Text */}
-                          <span className="relative z-10 text-gray-700 font-semibold text-[11px] leading-[1.4] text-center whitespace-pre-line px-1">
-                            {item.text}
-                          </span>
-                        </div>
-                      </div>
+                      <motion.div
+                        animate={{ y: [0, -6, 0] }}
+                        transition={{ duration: 2.5 + idx * 0.3, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.2 }}
+                        className="flex flex-col items-center gap-1.5 group cursor-pointer"
+                      >
+                        {/* Icon circle */}
+                        <motion.div
+                          whileHover={{ scale: 1.15 }}
+                          className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-[4.5rem] md:h-[4.5rem] lg:w-20 lg:h-20 rounded-full flex items-center justify-center transition-all duration-300"
+                          style={{
+                            background: '#ffffff',
+                            border: `2.5px solid ${ICON_BORDER}`,
+                            boxShadow: '0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
+                          }}
+                        >
+                          <Icon
+                            className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9"
+                            style={{ color: ICON_BORDER }}
+                            strokeWidth={1.8}
+                          />
+                        </motion.div>
+                        {/* Label */}
+                        <span className="text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs font-semibold tracking-wide whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]">
+                          {item.label}
+                        </span>
+                      </motion.div>
                     </motion.div>
                   );
                 })}

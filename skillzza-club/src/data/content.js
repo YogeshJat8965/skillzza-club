@@ -13,7 +13,7 @@ export const navCTAs = {
 
 export const hero = {
   heading: "The Future-Ready Studio Ecosystem for Progressive Schools",
-  subheading: "From Exploration to Expertise — A Structured Skill Development Engine for K-12",
+  subheading: "From Exploration to Expertise A Structured Skill Development Engine for K-12",
   // description:
   //   "Skillzza K-12 Studio Programme transforms traditional school clubs into measurable, mentored, portfolio-driven learning ecosystems. Through 15 future-ready studios across AI, Robotics, Entrepreneurship, Sustainability, Finance, Media, Law, Space, and more — schools choose any 3 studios per academic year to build depth, not distraction.",
   checklist: [
@@ -23,7 +23,7 @@ export const hero = {
     "Digital student portfolio creation",
     "Career pathway alignment",
   ],
-  cta1: "Choose Your 3 Studios",
+  cta1: "Join Club",
   cta2: "Explore Studio Catalogue",
 };
 
