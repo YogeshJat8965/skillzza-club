@@ -19,24 +19,23 @@ const PartnersMarquee = () => {
         backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(0,0,0,0.04) 1px, transparent 0)',
         backgroundSize: '48px 48px'
       }} />
-      
-      {/* Gradient overlays for fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 lg:w-48 bg-gradient-to-r from-white via-white/90 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 lg:w-48 bg-gradient-to-l from-white via-white/90 to-transparent z-10 pointer-events-none" />
 
       <div className="relative z-0">
         {/* Section Heading */}
         <div className="text-center mb-10 lg:mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-dark mb-3">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-dark mb-3">
             Trusted By Leading <span className="text-gray-800">Organizations</span>
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto px-4">
+          <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
             Partnership with industry leaders and educational institutions
           </p>
         </div>
 
         {/* Single Marquee Row */}
         <div className="relative">
+          {/* Gradient overlays for fade effect - only on marquee area */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 lg:w-48 bg-gradient-to-r from-white via-white/90 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 lg:w-48 bg-gradient-to-l from-white via-white/90 to-transparent z-10 pointer-events-none" />
           <div className="flex overflow-hidden">
             <motion.div
               animate={{

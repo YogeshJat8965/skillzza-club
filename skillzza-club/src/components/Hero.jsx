@@ -55,7 +55,7 @@ const Hero = () => {
       <div className="hero-shimmer-overlay" />
 
       {/* ─── TWO-COLUMN LAYOUT ─── */}
-      <div className="relative z-10 pt-20 sm:pt-24 lg:pt-28 xl:pt-32 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
+      <div className="relative z-10 pt-28 sm:pt-24 lg:pt-28 xl:pt-32 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-16 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
@@ -206,7 +206,7 @@ const Hero = () => {
                         <img 
                           src={heroSectionImage} 
                           alt="Skillzza Studio Ecosystem" 
-                          className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover"
+                          className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover"
                         />
                       </motion.div>
                     </div>
