@@ -206,7 +206,7 @@ const Hero = () => {
                         <img 
                           src={heroSectionImage} 
                           alt="Skillzza Studio Ecosystem" 
-                          className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover"
+                          className="w-32 h-32 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-62 lg:h-62 object-cover"
                         />
                       </motion.div>
                     </div>
