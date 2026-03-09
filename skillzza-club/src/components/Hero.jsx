@@ -2,9 +2,18 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ArrowRight, Sparkles, BrainCircuit, Bot, Lightbulb, Leaf, Landmark, Tv, Scale, Rocket } from 'lucide-react';
 import { hero } from '../data/content';
+import heroSectionImage from '../assets/herosectionImage.jpeg';
 
 const Hero = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }
+  };
 
   const containerVariants = {
     hidden: {},
@@ -46,7 +55,7 @@ const Hero = () => {
       <div className="hero-shimmer-overlay" />
 
       {/* ─── TWO-COLUMN LAYOUT ─── */}
-      <div className="relative z-10 pt-28 sm:pt-32 lg:pt-44 xl:pt-48 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
+      <div className="relative z-10 pt-20 sm:pt-24 lg:pt-28 xl:pt-32 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-16 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 
@@ -101,6 +110,7 @@ const Hero = () => {
                   <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-300" />
                 </motion.button>
                 <motion.button
+                  onClick={() => scrollToSection('studios')}
                   whileHover={{ scale: 1.04, backgroundColor: 'rgba(255,255,255,0.1)' }}
                   whileTap={{ scale: 0.97 }}
                   className="flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-white/30 text-white font-semibold text-sm sm:text-[15px] hover:border-white/50 transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
@@ -134,7 +144,12 @@ const Hero = () => {
                       transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-0 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      <div className="absolute w-2 h-2 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.6)]" style={{ left: '50%', top: '0%', transform: 'translate(-50%, -50%)' }} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                        className="absolute w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.9)]" 
+                        style={{ left: '50%', top: '0%', transform: 'translate(-50%, -50%)' }} 
+                      />
                     </motion.div>
                     {/* Ring 2 — anti-clockwise */}
                     <motion.div
@@ -142,7 +157,12 @@ const Hero = () => {
                       transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-4 sm:inset-5 md:inset-6 lg:inset-8 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      <div className="absolute w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_8px_rgba(251,191,36,0.7)]" style={{ left: '100%', top: '50%', transform: 'translate(-50%, -50%)' }} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2.3, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                        className="absolute w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.9)]" 
+                        style={{ left: '100%', top: '50%', transform: 'translate(-50%, -50%)' }} 
+                      />
                     </motion.div>
                     {/* Ring 3 — clockwise */}
                     <motion.div
@@ -150,7 +170,12 @@ const Hero = () => {
                       transition={{ duration: 70, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-8 sm:inset-10 md:inset-12 lg:inset-16 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      <div className="absolute w-2 h-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_rgba(34,211,238,0.7)]" style={{ left: '50%', top: '100%', transform: 'translate(-50%, -50%)' }} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+                        className="absolute w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.9)]" 
+                        style={{ left: '50%', top: '100%', transform: 'translate(-50%, -50%)' }} 
+                      />
                     </motion.div>
                     {/* Ring 4 — anti-clockwise */}
                     <motion.div
@@ -158,7 +183,12 @@ const Hero = () => {
                       transition={{ duration: 90, repeat: Infinity, ease: 'linear' }}
                       className="absolute inset-12 sm:inset-15 md:inset-18 lg:inset-24 rounded-full border-[2px] border-dashed border-white/50"
                     >
-                      <div className="absolute w-2 h-2 rounded-full bg-pink-400/80 shadow-[0_0_8px_rgba(244,114,182,0.7)]" style={{ left: '0%', top: '50%', transform: 'translate(-50%, -50%)' }} />
+                      <motion.div 
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2.9, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+                        className="absolute w-2.5 h-2.5 rounded-full bg-pink-400 shadow-[0_0_12px_rgba(244,114,182,0.9)]" 
+                        style={{ left: '0%', top: '50%', transform: 'translate(-50%, -50%)' }} 
+                      />
                     </motion.div>
                     {/* Inner glow */}
                     <motion.div
@@ -166,32 +196,50 @@ const Hero = () => {
                       transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                       className="absolute inset-16 sm:inset-20 md:inset-24 lg:inset-32 rounded-full bg-white/10 blur-xl"
                     />
-                    {/* Center label */}
+                    {/* Center Image */}
                     <div className="absolute inset-0 flex items-center justify-center z-20">
                       <motion.div
                         animate={{ scale: [1, 1.03, 1] }}
                         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                        className="relative bg-white rounded-3xl px-6 py-5 sm:px-7 sm:py-6 md:px-8 md:py-7 text-center shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]"
+                        className="relative rounded-3xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]"
                       >
-                        <div className="relative">
-                          <p className="text-gray-800 font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-1">Skillzza</p>
-                          <p className="text-gray-500 text-xs sm:text-sm md:text-base font-medium">Studio Ecosystem</p>
-                        </div>
+                        <img 
+                          src={heroSectionImage} 
+                          alt="Skillzza Studio Ecosystem" 
+                          className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover"
+                        />
                       </motion.div>
                     </div>
-                    {/* Pulsing dots on outer ring */}
-                    {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
+                    {/* Pulsing sparkle dots on rings */}
+                    {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg, idx) => {
                       const r = (deg * Math.PI) / 180;
+                      const radius = idx % 3 === 0 ? 50 : idx % 3 === 1 ? 40 : 30;
+                      const colors = ['#FFFFFF', '#FCD34D', '#60A5FA', '#F472B6'];
+                      const color = colors[idx % colors.length];
                       return (
                         <motion.div
                           key={idx}
-                          animate={{ opacity: [0.15, 0.6, 0.15], scale: [0.8, 1.2, 0.8] }}
-                          transition={{ duration: 2.5, repeat: Infinity, delay: idx * 0.3 }}
-                          className="absolute w-1.5 h-1.5 rounded-full bg-white/50"
+                          animate={{ 
+                            opacity: [0.2, 1, 0.2], 
+                            scale: [0.5, 1.5, 0.5],
+                            rotate: [0, 180, 360]
+                          }}
+                          transition={{ 
+                            duration: 3 + (idx * 0.2), 
+                            repeat: Infinity, 
+                            delay: idx * 0.2,
+                            ease: 'easeInOut'
+                          }}
+                          className="absolute rounded-full"
                           style={{
-                            left: `${50 + 50 * Math.cos(r)}%`,
-                            top: `${50 + 50 * Math.sin(r)}%`,
+                            left: `${50 + radius * Math.cos(r)}%`,
+                            top: `${50 + radius * Math.sin(r)}%`,
                             transform: 'translate(-50%, -50%)',
+                            width: idx % 2 === 0 ? '8px' : '6px',
+                            height: idx % 2 === 0 ? '8px' : '6px',
+                            background: color,
+                            boxShadow: `0 0 20px ${color}, 0 0 40px ${color}80`,
+                            clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'
                           }}
                         />
                       );
@@ -205,8 +253,8 @@ const Hero = () => {
                   const angleDeg = iconAngles[idx];
                   const rad = (angleDeg * Math.PI) / 180;
                   const orbitPct = 44; // % from center — aligns with outermost ring
-                  const cx = 50 + orbitPct * Math.cos(rad);
-                  const cy = 50 + orbitPct * Math.sin(rad);
+                  const cx = 50 + orbitPct * Math.cos(rad) - 6; // Shifted left by 2%
+                  const cy = 50 + orbitPct * Math.sin(rad) - 6; // Shifted up by 2%
 
                   return (
                     <motion.div
@@ -222,30 +270,91 @@ const Hero = () => {
                       }}
                     >
                       <motion.div
-                        animate={{ y: [0, -6, 0] }}
+                        animate={{ y: [0, -8, 0] }}
                         transition={{ duration: 2.5 + idx * 0.3, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.2 }}
-                        className="flex flex-col items-center gap-1.5 group cursor-pointer"
+                        className="flex flex-col items-center gap-2 group cursor-pointer"
                       >
-                        {/* Icon circle */}
+                        {/* Icon circle with glow */}
                         <motion.div
-                          whileHover={{ scale: 1.15 }}
-                          className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-[4.5rem] md:h-[4.5rem] lg:w-20 lg:h-20 rounded-full flex items-center justify-center transition-all duration-300"
+                          whileHover={{ scale: 1.2, rotate: 360 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                          className="relative"
+                        >
+                          {/* Pulsing glow background */}
+                          <motion.div
+                            animate={{ 
+                              scale: [1, 1.2, 1],
+                              opacity: [0.3, 0.6, 0.3]
+                            }}
+                            transition={{ 
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                              delay: idx * 0.25
+                            }}
+                            className="absolute inset-0 rounded-full blur-xl"
+                            style={{
+                              background: `radial-gradient(circle, ${ICON_BORDER}80, transparent)`,
+                            }}
+                          />
+                          
+                          {/* Main icon circle */}
+                          <motion.div
+                            animate={{ 
+                              boxShadow: [
+                                '0 0 20px rgba(98, 34, 195, 0.4), 0 0 40px rgba(98, 34, 195, 0.2)',
+                                '0 0 30px rgba(98, 34, 195, 0.6), 0 0 60px rgba(98, 34, 195, 0.3)',
+                                '0 0 20px rgba(98, 34, 195, 0.4), 0 0 40px rgba(98, 34, 195, 0.2)',
+                              ]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.25 }}
+                            className="relative w-16 h-16 sm:w-[4.5rem] sm:h-[4.5rem] md:w-20 md:h-20 lg:w-[5.5rem] lg:h-[5.5rem] rounded-full flex items-center justify-center backdrop-blur-sm"
+                            style={{
+                              background: 'linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%)',
+                              border: `3px solid ${ICON_BORDER}`,
+                            }}
+                          >
+                            {/* Rotating border effect */}
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                              className="absolute inset-0 rounded-full"
+                              style={{
+                                background: `conic-gradient(from 0deg, transparent 0deg, ${ICON_BORDER}40 90deg, transparent 180deg)`,
+                              }}
+                            />
+                            
+                            {/* Icon with pulse animation */}
+                            <motion.div
+                              animate={{ 
+                                scale: [1, 1.1, 1],
+                                rotate: [0, 5, -5, 0]
+                              }}
+                              transition={{ 
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                                delay: idx * 0.2
+                              }}
+                            >
+                              <Icon
+                                className="relative z-10 w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-11 lg:h-11"
+                                style={{ color: ICON_BORDER }}
+                                strokeWidth={2}
+                              />
+                            </motion.div>
+                          </motion.div>
+                        </motion.div>
+                        
+                        {/* Label with glow */}
+                        <motion.span 
+                          className="text-white text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-bold tracking-wide whitespace-nowrap"
                           style={{
-                            background: '#ffffff',
-                            border: `2.5px solid ${ICON_BORDER}`,
-                            boxShadow: '0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
+                            textShadow: '0 2px 8px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3)'
                           }}
                         >
-                          <Icon
-                            className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9"
-                            style={{ color: ICON_BORDER }}
-                            strokeWidth={1.8}
-                          />
-                        </motion.div>
-                        {/* Label */}
-                        <span className="text-white text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs font-semibold tracking-wide whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]">
                           {item.label}
-                        </span>
+                        </motion.span>
                       </motion.div>
                     </motion.div>
                   );

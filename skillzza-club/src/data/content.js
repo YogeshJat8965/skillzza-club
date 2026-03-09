@@ -29,7 +29,7 @@ export const hero = {
 
 export const challenge = {
   label: "THE CHALLENGE",
-  heading: "Schools Need Structured Skill Development",
+  heading: "Bridging the Skills Gap in K-12 Education",
   stats: [
     { title: "Skill Gaps in K-12 Education", value: 87, color: "#F43F5E" },
     { title: "Limited Career Alignment in School Activities", value: 72, color: "#F59E0B" },
@@ -41,89 +41,97 @@ export const challenge = {
 
 export const studioCategories = {
   label: "SKILLZZA K-12 STUDIO PROGRAMME",
-  heading: "The Future Studios Categories",
+  heading: "Our Skill Studios",
   studios: [
     {
-      name: "AI & Deep Tech",
+      name: "Gen AI & Deep Tech Studio",
       category: "STEM",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
     },
     {
-      name: "Robotics & Engineering",
+      name: "Robotics & AI Engineering Studio",
       category: "STEM",
       image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80",
     },
+    
     {
-      name: "Entrepreneurship & Leadership",
-      category: "Humanities",
-      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80",
-    },
-    {
-      name: "Sustainability & Climate",
+      name: "Eco Warrior & Sustainability Studio",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=600&q=80",
     },
+    
+   
     {
-      name: "Financial Literacy",
-      category: "Life Skills",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
-    },
-    {
-      name: "Blockchain & FinTech",
-      category: "STEM",
-      image: "https://images.yourstory.com/production/document_image/mystoryimage/273wgk44-Blockchain-1.jpg?fm=png&auto=format&w=800&blur=500",
-    },
-    {
-      name: "Media & Journalism",
+      name: "Young Journalists & Media Studio",
       category: "Creative Arts",
       image: "https://www.shu.ac.uk/-/media/home/olp/subject-area-images/media-pr-and-journalism.jpg?h=394&iar=0&w=700&sc_lang=en&hash=D801334AF4F599AADD8DFA53EEA52C81",
     },
+    
+    
     {
-      name: "Global Affairs & Diplomacy",
-      category: "Humanities",
-      image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
-    },
-    {
-      name: "Law & Cyber Security",
-      category: "Humanities",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
-    },
-    {
-      name: "Animation & Game Design",
+      name: "Animation & Gamification Studio",
       category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&q=80",
     },
     {
-      name: "Creative Arts",
+      name: "Creative Design & Art Studio",
       category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80",
     },
+    
     {
-      name: "Indian Heritage",
-      category: "Humanities",
-      image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=80",
-    },
-    {
-      name: "Social Impact",
+      name: "Social Impact Studio",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80",
     },
+    
     {
-      name: "Mindfulness & Life Skills",
+      name: "Space & Astronomy Studio",
+      category: "STEM",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+    },
+    {
+      name: "Social Impact & Global Community Studio",
       category: "Life Skills",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
     },
     {
-      name: "Space & Astronomy",
+      name: "Financial Literacy & Money Mastery Studio",
+      category: "Life Skills",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
+    },
+    {
+      name: "Future Leaders & Entrepreneurship Studio",
+      category: "Humanities",
+      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80",
+    },
+     {
+      name: "Blockchain, Web3 & FinTech Studio",
       category: "STEM",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+      image: "https://images.yourstory.com/production/document_image/mystoryimage/273wgk44-Blockchain-1.jpg?fm=png&auto=format&w=800&blur=500",
+    },
+    {
+      name: "Global Citizens & World Affairs Studio",
+      category: "Humanities",
+      image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
+    },
+    {
+      name: "Law Awareness, Cyber Security & Digital Safety Studio",
+      category: "Humanities",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
+    },
+    {
+      name: "Indian Heritage & Civilizational Wisdom Studio",
+      category: "Humanities",
+      image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=80",
     },
   ],
+  
   cta: "View Full Studio Details",
 };
 
 export const studioModel = {
-  heading: "The 3-Studio-Per-Year Model",
+  heading: "The Skill Learning Pathway",
   subheading: "Focused Depth. Measurable Impact.",
   checklist: [
     "Schools select exactly 3 studios per academic year",
@@ -137,7 +145,7 @@ export const studioModel = {
 };
 
 export const implementationFramework = {
-  heading: "Structured Implementation Framework",
+  heading: "Studio Rollout",
   subheading: "Plug-and-Play. School-Led. Scalable.",
   checklist: [
     "Hybrid-ready delivery (in-person / virtual / blended)",

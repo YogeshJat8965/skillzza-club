@@ -47,7 +47,7 @@ const Challenge = () => {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#F0EDF8]" ref={ref}>
+    <section className="relative py-8 lg:py-16 bg-[#F0EDF8]" ref={ref}>
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-20" style={{
         backgroundImage: 'radial-gradient(circle at 2px 2px, #C4B5E2 1px, transparent 0)',

@@ -1,34 +1,35 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowRight, Monitor, Users, BookText, ClipboardList, Heart } from 'lucide-react';
+import { ArrowRight, Laptop, UsersRound, BookOpen, ClipboardCheck, Handshake } from 'lucide-react';
 import { implementationFramework } from '../data/content';
+import studioRolloutImage from '../assets/studio rollout.jpg';
 
 const ICON_COLOR = '#7C3AED';
 
 const wheelItems = [
   {
-    icon: Monitor,
+    icon: Laptop,
     label: 'Hybrid Delivery',
     desc: 'Hybrid-ready delivery (in-person / virtual / blended) that adapts to every school\'s infrastructure and scheduling needs.',
   },
   {
-    icon: Users,
+    icon: UsersRound,
     label: 'Facilitator Model',
     desc: 'Studio Facilitator + School Champion model ensuring expert-led sessions with on-ground school coordination.',
   },
   {
-    icon: BookText,
+    icon: BookOpen,
     label: 'Session Plans',
     desc: 'Ready-to-run session plans & facilitator guides with structured weekly curriculum for seamless delivery.',
   },
   {
-    icon: ClipboardList,
+    icon: ClipboardCheck,
     label: 'Workbooks & Rubrics',
     desc: 'Student workbooks & assessment rubrics with clear skill-tracking matrices and evaluation frameworks.',
   },
   {
-    icon: Heart,
+    icon: Handshake,
     label: 'Parent Integration',
     desc: 'Parent integration & showcase participation with structured mid-year and annual exhibitions.',
   },
@@ -64,18 +65,19 @@ const ImplementationFramework = () => {
   const ActiveIcon = activeItem.icon;
 
   return (
-    <section id="implementation" className="relative py-24 lg:py-32 overflow-hidden bg-[#D8D4FD]">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 blob animate-float-slow" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/10 blob animate-float" />
-      {/* Grid pattern matching Hero section */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: 'linear-gradient(rgba(124,58,237,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.08) 1px, transparent 1px)',
+    <section id="implementation" className="relative py-20 lg:py-28 overflow-hidden bg-gradient-to-br from-[#E8E4FC] via-[#D8D4FD] to-[#E0DCFC]">
+      {/* Enhanced Background decoration */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/8 to-transparent rounded-full blur-3xl animate-float-slow" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-purple-400/12 to-transparent rounded-full blur-3xl animate-float" />
+      <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-blue-300/5 rounded-full blur-2xl" />
+      {/* Refined grid pattern */}
+      <div className="absolute inset-0 opacity-40" style={{
+        backgroundImage: 'linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px)',
         backgroundSize: '60px 60px'
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-        <div className="grid lg:grid-cols-2 gap-20 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           {/* Left: Wheel Visual */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -84,39 +86,47 @@ const ImplementationFramework = () => {
             className="relative flex items-center justify-center mb-8 lg:mb-0"
           >
             {/* Central circle */}
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px]">
+              {/* Outer glow */}
+              <motion.div
+                animate={{ opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -inset-6 rounded-full bg-gradient-to-r from-primary/20 to-purple-400/20 blur-2xl"
+              />
+              
               {/* Rotating ring */}
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full border-2 border-dashed border-primary/25"
-              />
+                transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 rounded-full border-[2.5px] border-dashed border-primary/30"
+              >
+                <div className="absolute w-2.5 h-2.5 rounded-full bg-primary/60 shadow-lg shadow-primary/40" style={{ left: '50%', top: '-4px', transform: 'translateX(-50%)' }} />
+              </motion.div>
 
               {/* Inner ring */}
               <motion.div
                 animate={{ rotate: -360 }}
-                transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-8 rounded-full border border-primary/15"
-              />
+                transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-8 rounded-full border-2 border-primary/20"
+              >
+                <div className="absolute w-2 h-2 rounded-full bg-purple-400/60 shadow-lg shadow-purple-400/40" style={{ left: '100%', top: '50%', transform: 'translate(-50%, -50%)' }} />
+              </motion.div>
 
-              {/* Center circle label — cycles through active item */}
+              {/* Center circle with image */}
               <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-white flex items-center justify-center shadow-lg shadow-primary/10 border-[3px] border-primary/20">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeIndex}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-center px-2"
-                    >
-                      <p className="font-bold text-xs sm:text-sm lg:text-base text-primary leading-tight">
-                        {activeItem.label}
-                      </p>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+                <motion.div 
+                  animate={{ scale: [1, 1.03, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                  className="relative w-32 h-32 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full overflow-hidden shadow-2xl border-[4px] border-white"
+                  style={{ boxShadow: '0 10px 40px rgba(124,58,237,0.25), 0 0 60px rgba(124,58,237,0.15)' }}
+                >
+                  <img 
+                    src={studioRolloutImage} 
+                    alt="Studio Rollout" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent" />
+                </motion.div>
               </div>
 
               {/* Wheel nodes */}
@@ -135,7 +145,8 @@ const ImplementationFramework = () => {
                     initial={{ opacity: 0, scale: 0 }}
                     animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                     transition={{
-                      opacity: { duration: 0.5, delay: 0.4 + i * 0.15 },
+                      opacity: { duration: 0.5, delay: 0.4 + i * 0.12 },
+                      scale: { type: 'spring', stiffness: 200, delay: 0.4 + i * 0.12 }
                     }}
                     className="absolute"
                     style={{
@@ -146,22 +157,30 @@ const ImplementationFramework = () => {
                   >
                     <button
                       onClick={() => handleCircleClick(i)}
-                      className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center cursor-pointer -translate-x-1/2 -translate-y-1/2 border-[3px] transition-all duration-700 ease-in-out outline-none"
+                      className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center cursor-pointer -translate-x-1/2 -translate-y-1/2 border-[3px] outline-none backdrop-blur-sm transition-all duration-300 hover:brightness-105"
                       style={{
                         backgroundColor: isActive ? ICON_COLOR : '#ffffff',
-                        borderColor: ICON_COLOR,
-                        boxShadow: isActive ? `0 8px 24px ${ICON_COLOR}40` : '0 4px 12px rgba(0,0,0,0.06)',
+                        borderColor: '#6222C3',
+                        boxShadow: isActive 
+                          ? `0 8px 24px ${ICON_COLOR}40, 0 0 40px ${ICON_COLOR}15` 
+                          : '0 4px 16px rgba(124,58,237,0.08), 0 2px 8px rgba(0,0,0,0.04)',
                       }}
                     >
-                      <Icon
-                        className="transition-all duration-700 ease-in-out"
-                        style={{
-                          color: isActive ? '#ffffff' : ICON_COLOR,
-                          width: isActive ? 40 : 26,
-                          height: isActive ? 40 : 26,
-                        }}
-                        strokeWidth={1.8}
-                      />
+                      <motion.div
+                        animate={isActive ? { rotate: [0, 3, -3, 0] } : {}}
+                        transition={{ duration: 1, repeat: isActive ? Infinity : 0, repeatDelay: 0.5 }}
+                      >
+                        <Icon
+                          style={{
+                            color: isActive ? '#ffffff' : ICON_COLOR,
+                            width: isActive ? 50 : 36,
+                            height: isActive ? 50 : 36,
+                            filter: isActive ? 'drop-shadow(0 2px 6px rgba(0,0,0,0.15))' : 'none',
+                            transition: 'all 0.7s ease-in-out',
+                          }}
+                          strokeWidth={2}
+                        />
+                      </motion.div>
                     </button>
                   </motion.div>
                 );
@@ -176,65 +195,68 @@ const ImplementationFramework = () => {
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
           >
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark mb-3 leading-tight">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark mb-4 leading-tight"
+            >
               {implementationFramework.heading}
-            </h2>
-            <p className="text-xl font-semibold text-primary mb-8">
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-10"
+            >
               {implementationFramework.subheading}
-            </p>
+            </motion.p>
 
             {/* Dynamic description card */}
-            <div className="relative mb-10 min-h-[180px]">
+            <div className="relative min-h-[200px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.35, ease: 'easeInOut' }}
-                  className="bg-white rounded-2xl p-6 shadow-xl shadow-primary/8 border-l-4"
-                  style={{ borderLeftColor: ICON_COLOR }}
+                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -30, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  className="bg-white/95 backdrop-blur-sm rounded-3xl p-7 shadow-2xl border border-primary/10"
+                  style={{ 
+                    boxShadow: '0 20px 60px rgba(124,58,237,0.12), 0 8px 24px rgba(0,0,0,0.06)',
+                  }}
                 >
                   {/* Card header with icon and label */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: ICON_COLOR + '15' }}
+                  <div className="flex items-center gap-4 mb-5">
+                    <motion.div
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg"
+                      style={{ 
+                        backgroundColor: ICON_COLOR + '18',
+                        boxShadow: `0 4px 16px ${ICON_COLOR}20`
+                      }}
                     >
-                      <ActiveIcon size={24} style={{ color: ICON_COLOR }} />
-                    </div>
-                    <h3 className="text-lg font-bold text-dark">{activeItem.label}</h3>
+                      <ActiveIcon size={28} style={{ color: ICON_COLOR }} strokeWidth={2.2} />
+                    </motion.div>
+                    <h3 className="text-xl font-bold text-dark">{activeItem.label}</h3>
                   </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-base leading-relaxed">
+                  <p className="text-gray-700 text-base leading-relaxed pl-[72px]">
                     {activeItem.desc}
                   </p>
-
-                  {/* Progress dots */}
-                  <div className="flex items-center gap-2 mt-5">
-                    {wheelItems.map((_, i) => (
-                      <div
-                        key={i}
-                        className="h-1.5 rounded-full transition-all duration-300"
-                        style={{
-                          width: i === activeIndex ? '24px' : '8px',
-                          backgroundColor: i === activeIndex ? ICON_COLOR : 'rgba(124,58,237,0.15)',
-                        }}
-                      />
-                    ))}
-                  </div>
+                  
+                  {/* Decorative gradient bar */}
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: '100%' }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="h-1 bg-gradient-to-r from-primary via-purple-500 to-primary rounded-full mt-5"
+                  />
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* CTA */}
-            <button
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white font-bold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow btn-glow"
-            >
-              {implementationFramework.cta}
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
           </motion.div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { studioModel } from '../data/content';
-import academicRoadmap from '../assets/academic_year_roadmap.png';
+import academicRoadmap from '../assets/The Skill Learning Pathway.jpg';
 
 const StudioModel = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });

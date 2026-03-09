@@ -59,14 +59,15 @@ const Navbar = () => {
 
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-3">
-              <motion.button
+              <motion.a
+                href="tel:+919136961978"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
                 <Phone size={16} />
                 {navCTAs.discovery}
-              </motion.button>
+              </motion.a>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -112,7 +113,8 @@ const Navbar = () => {
                 </motion.button>
               ))}
               <div className="flex flex-col gap-4 mt-8">
-                <motion.button
+                <motion.a
+                  href="tel:+919136961978"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
@@ -120,7 +122,7 @@ const Navbar = () => {
                 >
                   <Phone size={18} />
                   {navCTAs.discovery}
-                </motion.button>
+                </motion.a>
                 <motion.button
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
