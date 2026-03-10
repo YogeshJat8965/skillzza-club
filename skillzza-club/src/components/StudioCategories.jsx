@@ -1,80 +1,140 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ArrowRight, ChevronUp } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { studioCategories } from '../data/content';
 
-const INITIAL_VISIBLE = 6;
-
-const categoryColors = {
-  STEM: 'from-blue-500 to-cyan-400',
-  Humanities: 'from-amber-500 to-orange-400',
-  'Creative Arts': 'from-pink-500 to-rose-400',
-  'Life Skills': 'from-green-500 to-emerald-400',
-};
-
-const categoryBg = {
-  STEM: 'bg-blue-500/20 text-blue-300',
-  Humanities: 'bg-amber-500/20 text-amber-300',
-  'Creative Arts': 'bg-pink-500/20 text-pink-300',
-  'Life Skills': 'bg-green-500/20 text-green-300',
-};
-
-const StudioCard = ({ studio, i, inView }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={inView ? { opacity: 1, y: 0 } : {}}
-    transition={{ duration: 0.5, delay: 0.1 + (i % 3) * 0.08 }}
-    className="group relative rounded-2xl overflow-hidden cursor-pointer card-hover bg-white shadow-md hover:shadow-xl transition-shadow duration-300"
-  >
-    {/* Image */}
-    <div className="relative h-56 overflow-hidden">
-      <img
-        src={studio.image}
-        alt={studio.name}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        loading="lazy"
-      />
-
-      {/* Category Tag */}
-      <div className="absolute top-4 right-4">
-        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${categoryBg[studio.category]}`}>
-          {studio.category}
-        </span>
-      </div>
-    </div>
-
-    {/* Content - White Space Below Image */}
-    <div className="p-6 bg-white">
-      <h3 className="text-xl font-bold text-dark mb-2 group-hover:text-primary transition-colors duration-300">
-        {studio.name}
-      </h3>
-      <div className="w-12 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transform origin-left transition-all duration-500 group-hover:w-20" />
-    </div>
-
-    {/* Hover border glow */}
-    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500 pointer-events-none" />
-  </motion.div>
-);
+const studios = studioCategories.studios;
+const total = studios.length;
+const wrap = (i) => ((i % total) + total) % total;
 
 const StudioCategories = () => {
-  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.1 });
-  const [showAll, setShowAll] = useState(false);
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.15 });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const progressRef = useRef(null);
+  const INTERVAL = 4000;
 
-  const visibleStudios = studioCategories.studios.slice(0, INITIAL_VISIBLE);
-  const hiddenStudios = studioCategories.studios.slice(INITIAL_VISIBLE);
+  /* ---- auto-play with progress ---------------------------------------- */
+  const advance = useCallback(() => {
+    setActiveIndex((prev) => wrap(prev + 1));
+    setProgress(0);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || !inView) {
+      if (progressRef.current) cancelAnimationFrame(progressRef.current);
+      return;
+    }
+    let start = performance.now();
+    const tick = (now) => {
+      const elapsed = now - start;
+      const pct = Math.min(elapsed / INTERVAL, 1);
+      setProgress(pct);
+      if (pct >= 1) {
+        advance();
+        start = now;
+      }
+      progressRef.current = requestAnimationFrame(tick);
+    };
+    progressRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (progressRef.current) cancelAnimationFrame(progressRef.current);
+    };
+  }, [isPaused, inView, advance, activeIndex]);
+
+  /* ---- navigation ----------------------------------------------------- */
+  const goTo = (idx) => { setActiveIndex(wrap(idx)); setProgress(0); };
+  const prev = () => { setActiveIndex((p) => wrap(p - 1)); setProgress(0); };
+  const next = () => { setActiveIndex((p) => wrap(p + 1)); setProgress(0); };
+
+  /* ---- 3 visible cards ------------------------------------------------ */
+  const leftIdx = wrap(activeIndex - 1);
+  const centerIdx = activeIndex;
+  const rightIdx = wrap(activeIndex + 1);
+
+  /* ---- card variants for framer-motion -------------------------------- */
+  const cardVariants = {
+    left: {
+      scale: 0.82,
+      opacity: 0.55,
+      rotateY: 8,
+      transition: { type: 'spring', stiffness: 220, damping: 26 },
+    },
+    center: {
+      scale: 1,
+      opacity: 1,
+      rotateY: 0,
+      transition: { type: 'spring', stiffness: 220, damping: 26 },
+    },
+    right: {
+      scale: 0.82,
+      opacity: 0.55,
+      rotateY: -8,
+      transition: { type: 'spring', stiffness: 220, damping: 26 },
+    },
+  };
+
+  /* ---- single card ---------------------------------------------------- */
+  const Card = ({ studio, variant, studioIdx }) => {
+    const isCenter = variant === 'center';
+    return (
+      <motion.div
+        className={`sc-card ${isCenter ? 'sc-card--active' : ''}`}
+        variants={cardVariants}
+        animate={variant}
+        onClick={() => !isCenter && goTo(studioIdx)}
+        whileHover={isCenter ? { scale: 1.03 } : {}}
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        <div className="sc-card__image-wrap">
+          <img
+            src={studio.image}
+            alt={studio.name}
+            loading="lazy"
+            draggable="false"
+          />
+          {/* dark overlay only on side cards */}
+          {!isCenter && <div className="sc-card__overlay" />}
+
+          {/* label */}
+          <div className="sc-card__label">
+            <h3>{studio.name}</h3>
+            <div className="sc-card__accent" />
+          </div>
+
+          {/* glow ring on center */}
+          {isCenter && <div className="sc-card__glow-ring" />}
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
-    <section id="studios" className="relative py-24 lg:py-32 bg-[#D8D4FD] overflow-hidden" ref={ref}>
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 blob animate-float-slow" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-300/8 blob animate-float" />
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, #976EDF 1px, transparent 0)',
-        backgroundSize: '60px 60px'
-      }} />
+    <section
+      id="studios"
+      className="relative py-24 lg:py-32 sc-section overflow-hidden"
+      ref={ref}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Background decorations */}
+      <div className="sc-bg-orb sc-bg-orb--1" />
+      <div className="sc-bg-orb sc-bg-orb--2" />
+      <div className="sc-bg-grid" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section label */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-sm font-semibold tracking-[0.2em] uppercase text-center mb-3"
+          style={{ color: '#976EDF' }}
+        >
+          {studioCategories.label}
+        </motion.p>
 
         {/* Heading */}
         <motion.h2
@@ -85,8 +145,6 @@ const StudioCategories = () => {
         >
           {studioCategories.heading}
         </motion.h2>
-
-        {/* Subheading */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -96,50 +154,73 @@ const StudioCategories = () => {
           {studioCategories.subheading}
         </motion.p>
 
-        {/* Studios Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Always-visible cards */}
-          {visibleStudios.map((studio, i) => (
-            <StudioCard key={i} studio={studio} i={i} inView={inView} />
-          ))}
+        {/* ====== CAROUSEL — flex row of 3 cards ====== */}
+        <div className="sc-viewport-wrap">
+          <div className="sc-carousel-row">
+            {/* LEFT */}
+            <div className="sc-slot sc-slot--side">
+              <Card studio={studios[leftIdx]} variant="left" studioIdx={leftIdx} />
+            </div>
 
-          {/* Expandable cards */}
-          <AnimatePresence>
-            {showAll && hiddenStudios.map((studio, i) => (
-              <motion.div
-                key={`hidden-${i}`}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-              >
-                <StudioCard studio={studio} i={i} inView={true} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+            {/* CENTER */}
+            <div className="sc-slot sc-slot--center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={centerIdx}
+                  initial={{ opacity: 0, x: 60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -60 }}
+                  transition={{ type: 'spring', stiffness: 250, damping: 28 }}
+                >
+                  <Card studio={studios[centerIdx]} variant="center" studioIdx={centerIdx} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* RIGHT */}
+            <div className="sc-slot sc-slot--side">
+              <Card studio={studios[rightIdx]} variant="right" studioIdx={rightIdx} />
+            </div>
+          </div>
+
+          {/* Navigation arrows */}
+          <button onClick={prev} aria-label="Previous studio" className="sc-arrow sc-arrow--left">
+            <ChevronLeft size={20} />
+          </button>
+          <button onClick={next} aria-label="Next studio" className="sc-arrow sc-arrow--right">
+            <ChevronRight size={20} />
+          </button>
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-14"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowAll(!showAll)}
-            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white font-bold text-base shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow duration-300 btn-glow"
+        {/* Progress dots */}
+        <div className="sc-dots">
+          {studios.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Go to studio ${i + 1}`}
+              onClick={() => goTo(i)}
+              className={`sc-dot ${i === activeIndex ? 'sc-dot--active' : ''}`}
+            >
+              {i === activeIndex && (
+                <span className="sc-dot__fill" style={{ transform: `scaleX(${progress})` }} />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Active studio name */}
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={activeIndex}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35 }}
+            className="text-center mt-6 text-dark font-semibold text-lg sm:text-xl"
           >
-            {showAll ? 'Show Less' : studioCategories.cta}
-            {showAll ? (
-              <ChevronUp size={18} className="transition-transform" />
-            ) : (
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            )}
-          </motion.button>
-        </motion.div>
+            {studios[activeIndex].name}
+          </motion.p>
+        </AnimatePresence>
       </div>
     </section>
   );
