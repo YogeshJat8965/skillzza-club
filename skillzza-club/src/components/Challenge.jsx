@@ -6,6 +6,14 @@ import { challenge } from '../data/content';
 
 const icons = [GraduationCap, Compass, ChartNoAxesCombined, Globe2, Rocket];
 
+const gradients = [
+  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
+  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
+  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
+  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
+  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)'
+];
+
 const AnimatedCounter = ({ value, inView }) => {
   const [count, setCount] = useState(0);
 
@@ -100,8 +108,11 @@ const Challenge = () => {
                 {/* Subtle gradient border on hover */}
                 <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-500 via-violet-500 to-fuchsia-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                {/* White Card */}
-                <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full">
+                {/* Card with Gradient Background */}
+                <div 
+                  className="relative rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full"
+                  style={{ background: gradients[i] }}
+                >
                   
                   {/* Subtle gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-pink-50/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
