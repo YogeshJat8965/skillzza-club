@@ -117,13 +117,13 @@ const ImplementationFramework = () => {
                 <motion.div 
                   animate={{ scale: [1, 1.03, 1] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="relative w-32 h-32 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full overflow-hidden shadow-2xl border-[4px] border-white"
+                  className="relative w-32 h-32 sm:w-36 sm:h-36 lg:w-56 lg:h-56 rounded-full overflow-hidden shadow-2xl border-[4px] border-white"
                   style={{ boxShadow: '0 10px 40px rgba(124,58,237,0.25), 0 0 60px rgba(124,58,237,0.15)' }}
                 >
                   <img 
                     src={studioRolloutImage} 
                     alt="Studio Rollout" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover  lg:scale-101 lg:bg-gray-50"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent" />
                 </motion.div>

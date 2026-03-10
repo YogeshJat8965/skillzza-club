@@ -260,70 +260,67 @@ body {
   pointer-events: none;
 }
 
-/* Viewport wrapper */
-.sc-viewport-wrap {
+/* Stage — contains the 5 positioned cards */
+.sc-stage {
   position: relative;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
+  height: 400px;
+  padding: 0 50px;
 }
 
-/* Flex row: 3 cards side by side */
-.sc-carousel-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  perspective: 1200px;
-}
-
-/* Card slots */
-.sc-slot {
-  flex-shrink: 0;
-}
-.sc-slot--side {
-  width: 260px;
-}
-.sc-slot--center {
-  width: 420px;
-  z-index: 5;
-}
-
-/* Card base */
-.sc-card {
-  cursor: pointer;
-  border-radius: 1.25rem;
+.sc-stage__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  will-change: transform, opacity, filter;
-  transition: box-shadow 0.45s cubic-bezier(.4,0,.2,1);
+  border-radius: 1rem;
+}
+
+/* Each coverflow card — absolutely centered, positioned via inline transforms */
+.sc-coverflow-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  margin-left: -170px;
+  margin-top: -180px;
+  cursor: pointer;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
   -webkit-user-select: none;
   user-select: none;
+}
+
+.sc-coverflow-card:hover {
+  filter: brightness(1.05);
 }
 
 .sc-card__image-wrap {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 360px;
   overflow: hidden;
-  border-radius: 1.25rem;
-  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 1rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
 }
 
 .sc-card__image-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(.4,0,.2,1);
 }
 
-/* No zoom on active card — show original image as-is */
-
-/* Gradient overlay on card */
-.sc-card__overlay {
-  position: absolute; inset: 0;
+/* Subtle bottom gradient for text readability */
+.sc-card__gradient {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     to top,
-    rgba(15,5,35,0.78) 0%,
-    rgba(15,5,35,0.3) 35%,
+    rgba(15, 5, 35, 0.7) 0%,
+    rgba(15, 5, 35, 0.2) 40%,
     transparent 65%
   );
   pointer-events: none;
@@ -332,88 +329,66 @@ body {
 /* Label on card */
 .sc-card__label {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 16px 20px;
-}
-
-/* Frosted-glass label on center card for readability */
-.sc-card--active .sc-card__label {
-  background: rgba(15, 5, 35, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 0 0 1.25rem 1.25rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 16px;
 }
 
 .sc-card__label h3 {
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.3;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .sc-card__accent {
-  margin-top: 10px;
-  width: 36px; height: 3px;
+  margin-top: 8px;
+  width: 30px;
+  height: 3px;
   border-radius: 4px;
   background: linear-gradient(90deg, #38bdf8, #818cf8);
-}
-
-/* Active card glow ring */
-.sc-card__glow-ring {
-  position: absolute;
-  inset: -2px;
-  border-radius: 1.35rem;
-  border: 2px solid transparent;
-  background:
-    linear-gradient(#0f0523, #0f0523) padding-box,
-    linear-gradient(135deg, rgba(151,110,223,0.6), rgba(56,189,248,0.4), rgba(151,110,223,0.6)) border-box;
-  opacity: 0.7;
-  pointer-events: none;
-  animation: ringPulse 3s ease-in-out infinite;
-}
-
-@keyframes ringPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.9; }
-}
-
-/* Active card shadow */
-.sc-card--active {
-  box-shadow:
-    0 24px 60px -8px rgba(124,77,204,0.40),
-    0 10px 28px -6px rgba(0,0,0,0.20),
-    0 0 0 1px rgba(151,110,223,0.12);
 }
 
 /* ---- Navigation arrows ---- */
 .sc-arrow {
   position: absolute;
-  top: 50%; z-index: 20;
+  top: 50%;
+  z-index: 20;
   transform: translateY(-50%);
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1.5px solid rgba(151,110,223,0.25);
-  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(151, 110, 223, 0.25);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  color: #2D1B69;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2d1b69;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(124,77,204,0.15);
+  box-shadow: 0 4px 16px rgba(124, 77, 204, 0.15);
   transition: all 0.25s ease;
 }
 
 .sc-arrow:hover {
   background: #fff;
   transform: translateY(-50%) scale(1.12);
-  box-shadow: 0 6px 24px rgba(124,77,204,0.28);
+  box-shadow: 0 6px 24px rgba(124, 77, 204, 0.28);
 }
 
-.sc-arrow--left  { left: -12px; }
-.sc-arrow--right { right: -12px; }
+.sc-arrow--left {
+  left: 0;
+  z-index: 20;
+}
+.sc-arrow--right {
+  right: 0;
+  z-index: 20;
+}
 
-/* ---- Progress dots ---- */
+/* ---- Dots ---- */
 .sc-dots {
   display: flex;
   justify-content: center;
@@ -423,65 +398,66 @@ body {
 }
 
 .sc-dot {
-  position: relative;
-  width: 10px; height: 10px;
+  width: 10px;
+  height: 10px;
   border-radius: 9999px;
-  background: rgba(151,110,223,0.2);
-  border: none; cursor: pointer;
-  overflow: hidden;
-  transition: all 0.45s cubic-bezier(.4,0,.2,1);
+  background: rgba(151, 110, 223, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .sc-dot--active {
-  width: 36px;
-  background: rgba(151,110,223,0.15);
-}
-
-.sc-dot__fill {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #976EDF, #7C4DCC);
-  transform-origin: left center;
-  will-change: transform;
+  width: 28px;
+  background: linear-gradient(90deg, #976edf, #7c4dcc);
 }
 
 .sc-dot:not(.sc-dot--active):hover {
-  background: rgba(151,110,223,0.4);
+  background: rgba(151, 110, 223, 0.4);
   transform: scale(1.25);
 }
 
 /* ---- Responsive ---- */
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-  .sc-slot--side {
-    width: 180px;
+@media (max-width: 1024px) {
+  .sc-stage {
+    height: 320px;
   }
-  .sc-slot--center {
-    width: 340px;
-  }
-  .sc-carousel-row {
-    gap: 12px;
+  .sc-coverflow-card {
+    width: 270px;
+    margin-left: -135px;
+    margin-top: -145px;
   }
   .sc-card__image-wrap {
-    height: 270px;
+    height: 290px;
   }
-  .sc-arrow--left  { left: 4px; }
-  .sc-arrow--right { right: 4px; }
+  .sc-arrow--left {
+    left: -16px;
+  }
+  .sc-arrow--right {
+    right: -16px;
+  }
 }
 
 @media (max-width: 640px) {
-  .sc-slot--side {
-    display: none;
-  }
-  .sc-slot--center {
-    width: 90vw;
-  }
-  .sc-card__image-wrap {
+  .sc-stage {
     height: 260px;
   }
+  .sc-coverflow-card {
+    width: 200px;
+    margin-left: -100px;
+    margin-top: -110px;
+  }
+  .sc-card__image-wrap {
+    height: 220px;
+  }
   .sc-card__label h3 {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
+  }
+  .sc-arrow--left {
+    left: -8px;
+  }
+  .sc-arrow--right {
+    right: -8px;
   }
 }
 

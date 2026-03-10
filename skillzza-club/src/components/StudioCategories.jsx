@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { studioCategories } from '../data/content';
@@ -8,107 +8,56 @@ const studios = studioCategories.studios;
 const total = studios.length;
 const wrap = (i) => ((i % total) + total) % total;
 
+/*
+  Position map for 5 visible cards:
+  -2  far-left   (smallest, most faded)
+  -1  left       (small, faded)
+   0  center     (largest, full opacity)
+  +1  right      (small, faded)
+  +2  far-right  (smallest, most faded)
+*/
+const positionStyles = {
+  '-2': { x: '-115%', y: '25px',  scale: 0.5,  opacity: 0.3,  zIndex: 1 },
+  '-1': { x: '-60%',  y: '12px',  scale: 0.72, opacity: 0.55, zIndex: 2 },
+  '0':  { x: '0%',    y: '0px',   scale: 1,    opacity: 1,    zIndex: 5 },
+  '1':  { x: '60%',   y: '12px',  scale: 0.72, opacity: 0.55, zIndex: 2 },
+  '2':  { x: '115%',  y: '25px',  scale: 0.5,  opacity: 0.3,  zIndex: 1 },
+};
+
 const StudioCategories = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.15 });
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const progressRef = useRef(null);
-  const INTERVAL = 4000;
+  const INTERVAL = 1600;
 
-  /* ---- auto-play with progress ---------------------------------------- */
-  const advance = useCallback(() => {
+  /* ---- auto-play ---------------------------------------------------- */
+  const next = useCallback(() => {
     setActiveIndex((prev) => wrap(prev + 1));
-    setProgress(0);
+  }, []);
+
+  const prev = useCallback(() => {
+    setActiveIndex((prev) => wrap(prev - 1));
   }, []);
 
   useEffect(() => {
-    if (isPaused || !inView) {
-      if (progressRef.current) cancelAnimationFrame(progressRef.current);
-      return;
-    }
-    let start = performance.now();
-    const tick = (now) => {
-      const elapsed = now - start;
-      const pct = Math.min(elapsed / INTERVAL, 1);
-      setProgress(pct);
-      if (pct >= 1) {
-        advance();
-        start = now;
-      }
-      progressRef.current = requestAnimationFrame(tick);
-    };
-    progressRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (progressRef.current) cancelAnimationFrame(progressRef.current);
-    };
-  }, [isPaused, inView, advance, activeIndex]);
+    if (isPaused || !inView) return;
+    const timer = setInterval(next, INTERVAL);
+    return () => clearInterval(timer);
+  }, [isPaused, inView, next, activeIndex]);
 
-  /* ---- navigation ----------------------------------------------------- */
-  const goTo = (idx) => { setActiveIndex(wrap(idx)); setProgress(0); };
-  const prev = () => { setActiveIndex((p) => wrap(p - 1)); setProgress(0); };
-  const next = () => { setActiveIndex((p) => wrap(p + 1)); setProgress(0); };
+  /* ---- navigation --------------------------------------------------- */
+  const goTo = (idx) => setActiveIndex(wrap(idx));
 
-  /* ---- 3 visible cards ------------------------------------------------ */
-  const leftIdx = wrap(activeIndex - 1);
-  const centerIdx = activeIndex;
-  const rightIdx = wrap(activeIndex + 1);
-
-  /* ---- card variants for framer-motion -------------------------------- */
-  const cardVariants = {
-    left: {
-      scale: 0.82,
-      opacity: 0.55,
-      rotateY: 8,
-      transition: { type: 'spring', stiffness: 220, damping: 26 },
-    },
-    center: {
-      scale: 1,
-      opacity: 1,
-      rotateY: 0,
-      transition: { type: 'spring', stiffness: 220, damping: 26 },
-    },
-    right: {
-      scale: 0.82,
-      opacity: 0.55,
-      rotateY: -8,
-      transition: { type: 'spring', stiffness: 220, damping: 26 },
-    },
-  };
-
-  /* ---- single card ---------------------------------------------------- */
-  const Card = ({ studio, variant, studioIdx }) => {
-    const isCenter = variant === 'center';
-    return (
-      <motion.div
-        className={`sc-card ${isCenter ? 'sc-card--active' : ''}`}
-        variants={cardVariants}
-        animate={variant}
-        onClick={() => !isCenter && goTo(studioIdx)}
-        whileHover={isCenter ? { scale: 1.03 } : {}}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        <div className="sc-card__image-wrap">
-          <img
-            src={studio.image}
-            alt={studio.name}
-            loading="lazy"
-            draggable="false"
-          />
-          {/* dark overlay only on side cards */}
-          {!isCenter && <div className="sc-card__overlay" />}
-
-          {/* label */}
-          <div className="sc-card__label">
-            <h3>{studio.name}</h3>
-            <div className="sc-card__accent" />
-          </div>
-
-          {/* glow ring on center */}
-          {isCenter && <div className="sc-card__glow-ring" />}
-        </div>
-      </motion.div>
-    );
+  /* ---- compute position for each studio ----------------------------- */
+  const getCardPosition = (studioIdx) => {
+    // Calculate shortest circular distance from activeIndex
+    let diff = studioIdx - activeIndex;
+    // Wrap around for circular carousel
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    // Only show cards within -2..+2 range
+    if (diff < -2 || diff > 2) return null;
+    return positionStyles[String(diff)];
   };
 
   return (
@@ -116,8 +65,8 @@ const StudioCategories = () => {
       id="studios"
       className="relative py-24 lg:py-32 sc-section overflow-hidden"
       ref={ref}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={() => {}}
+      onMouseLeave={() => {}}
     >
       {/* Background decorations */}
       <div className="sc-bg-orb sc-bg-orb--1" />
@@ -154,35 +103,8 @@ const StudioCategories = () => {
           {studioCategories.subheading}
         </motion.p>
 
-        {/* ====== CAROUSEL — flex row of 3 cards ====== */}
-        <div className="sc-viewport-wrap">
-          <div className="sc-carousel-row">
-            {/* LEFT */}
-            <div className="sc-slot sc-slot--side">
-              <Card studio={studios[leftIdx]} variant="left" studioIdx={leftIdx} />
-            </div>
-
-            {/* CENTER */}
-            <div className="sc-slot sc-slot--center">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={centerIdx}
-                  initial={{ opacity: 0, x: 60 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -60 }}
-                  transition={{ type: 'spring', stiffness: 250, damping: 28 }}
-                >
-                  <Card studio={studios[centerIdx]} variant="center" studioIdx={centerIdx} />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* RIGHT */}
-            <div className="sc-slot sc-slot--side">
-              <Card studio={studios[rightIdx]} variant="right" studioIdx={rightIdx} />
-            </div>
-          </div>
-
+        {/* ====== 5-CARD COVERFLOW CAROUSEL ====== */}
+        <div className="sc-stage">
           {/* Navigation arrows */}
           <button onClick={prev} aria-label="Previous studio" className="sc-arrow sc-arrow--left">
             <ChevronLeft size={20} />
@@ -190,9 +112,42 @@ const StudioCategories = () => {
           <button onClick={next} aria-label="Next studio" className="sc-arrow sc-arrow--right">
             <ChevronRight size={20} />
           </button>
+
+          <div className="sc-stage__inner">
+            {studios.map((studio, idx) => {
+              const style = getCardPosition(idx);
+              if (!style) return null;
+              return (
+                <div
+                  key={idx}
+                  className="sc-coverflow-card"
+                  style={{
+                    transform: `translateX(${style.x}) translateY(${style.y}) scale(${style.scale})`,
+                    opacity: style.opacity,
+                    zIndex: style.zIndex,
+                  }}
+                  onClick={() => idx !== activeIndex && goTo(idx)}
+                >
+                  <div className="sc-card__image-wrap">
+                    <img
+                      src={studio.image}
+                      alt={studio.name}
+                      loading="lazy"
+                      draggable="false"
+                    />
+                    <div className="sc-card__gradient" />
+                    <div className="sc-card__label">
+                      <h3>{studio.name}</h3>
+                      <div className="sc-card__accent" />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Progress dots */}
+        {/* Dots */}
         <div className="sc-dots">
           {studios.map((_, i) => (
             <button
@@ -200,27 +155,9 @@ const StudioCategories = () => {
               aria-label={`Go to studio ${i + 1}`}
               onClick={() => goTo(i)}
               className={`sc-dot ${i === activeIndex ? 'sc-dot--active' : ''}`}
-            >
-              {i === activeIndex && (
-                <span className="sc-dot__fill" style={{ transform: `scaleX(${progress})` }} />
-              )}
-            </button>
+            />
           ))}
         </div>
-
-        {/* Active studio name */}
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={activeIndex}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35 }}
-            className="text-center mt-6 text-dark font-semibold text-lg sm:text-xl"
-          >
-            {studios[activeIndex].name}
-          </motion.p>
-        </AnimatePresence>
       </div>
     </section>
   );
