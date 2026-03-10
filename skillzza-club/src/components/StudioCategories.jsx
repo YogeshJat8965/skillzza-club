@@ -24,11 +24,29 @@ const positionStyles = {
   '2':  { x: '115%',  y: '25px',  scale: 0.5,  opacity: 0.3,  zIndex: 1 },
 };
 
+/* Tighter offsets for mobile so side cards are more visible */
+const mobilePositionStyles = {
+  '-2': { x: '-90%',  y: '20px',  scale: 0.5,  opacity: 0.3,  zIndex: 1 },
+  '-1': { x: '-48%',  y: '10px',  scale: 0.72, opacity: 0.55, zIndex: 2 },
+  '0':  { x: '0%',    y: '0px',   scale: 1,    opacity: 1,    zIndex: 5 },
+  '1':  { x: '48%',   y: '10px',  scale: 0.72, opacity: 0.55, zIndex: 2 },
+  '2':  { x: '90%',   y: '20px',  scale: 0.5,  opacity: 0.3,  zIndex: 1 },
+};
+
 const StudioCategories = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.15 });
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const INTERVAL = 1600;
+
+  /* ---- detect mobile ------------------------------------------------ */
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   /* ---- auto-play ---------------------------------------------------- */
   const next = useCallback(() => {
@@ -57,7 +75,8 @@ const StudioCategories = () => {
     if (diff < -total / 2) diff += total;
     // Only show cards within -2..+2 range
     if (diff < -2 || diff > 2) return null;
-    return positionStyles[String(diff)];
+    const styles = isMobile ? mobilePositionStyles : positionStyles;
+    return styles[String(diff)];
   };
 
   return (
