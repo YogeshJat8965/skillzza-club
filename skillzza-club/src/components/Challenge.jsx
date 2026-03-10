@@ -62,7 +62,7 @@ const Challenge = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-4"
         >
-          <span className="inline-block px-6 py-2.5 rounded-full bg-red-100 text-red-600 text-sm font-bold uppercase tracking-widest">
+          <span className="inline-block px-8 py-3 rounded-full bg-red-100 text-red-600 text-base sm:text-lg font-bold uppercase tracking-widest">
             {challenge.label}
           </span>
         </motion.div>
@@ -82,7 +82,7 @@ const Challenge = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="flex flex-wrap justify-center gap-8 lg:gap-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-6"
         >
           {challenge.stats.map((stat, i) => {
             const Icon = icons[i];
@@ -90,22 +90,52 @@ const Challenge = () => {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                className="flex flex-col items-center text-center group w-full sm:w-[calc(50%-16px)] lg:w-[calc(20%-32px)] min-w-[160px]"
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  transition: { duration: 0.3, ease: 'easeOut' }
+                }}
+                className="relative group"
               >
-                {/* Icon */}
-                <div className="flex items-center justify-center mb-4">
-                  <Icon size={48} className="text-[#7C3AED]" strokeWidth={1.5} />
-                </div>
+                {/* Subtle gradient border on hover */}
+                <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-500 via-violet-500 to-fuchsia-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* White Card */}
+                <div className="relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full">
+                  
+                  {/* Subtle gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-pink-50/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Content */}
+                  <div className="relative z-10 flex flex-col items-center text-center">
+                    
+                    {/* Icon with white background */}
+                    <div className="mb-6">
+                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-4 shadow-md">
+                        <Icon size={44} className="text-[#7C3AED]" strokeWidth={2} />
+                      </div>
+                    </div>
 
-                {/* Counter */}
-                <div className="text-4xl sm:text-5xl font-black text-[#7C3AED] mb-2">
-                  <AnimatedCounter value={stat.value} inView={inView} />
-                </div>
+                    {/* Counter with gradient text */}
+                    <motion.div 
+                      className="text-6xl lg:text-7xl font-black mb-4"
+                      style={{
+                        background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #C084FC 100%)',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        filter: 'drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2))'
+                      }}
+                    >
+                      <AnimatedCounter value={stat.value} inView={inView} />
+                    </motion.div>
 
-                {/* Title */}
-                <p className="text-gray-600 font-medium text-sm sm:text-[15px] leading-snug max-w-[200px]">
-                  {stat.title}
-                </p>
+                    {/* Title */}
+                    <p className="text-gray-700 font-semibold text-sm lg:text-base leading-tight px-2">
+                      {stat.title}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

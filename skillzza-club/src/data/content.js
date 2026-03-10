@@ -45,85 +45,85 @@ export const studioCategories = {
   studios: [
     {
       name: "Gen AI & Deep Tech Studio",
-      category: "STEM",
+      // category: "STEM",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
     },
-    {
-      name: "Robotics & AI Engineering Studio",
-      category: "STEM",
-      image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80",
-    },
-    
+     
     {
       name: "Eco Warrior & Sustainability Studio",
-      category: "Life Skills",
+      // category: "Life Skills",
       image: "https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=600&q=80",
     },
     
    
     {
       name: "Young Journalists & Media Studio",
-      category: "Creative Arts",
+      // category: "Creative Arts",
       image: "https://www.shu.ac.uk/-/media/home/olp/subject-area-images/media-pr-and-journalism.jpg?h=394&iar=0&w=700&sc_lang=en&hash=D801334AF4F599AADD8DFA53EEA52C81",
     },
     
     
     {
       name: "Animation & Gamification Studio",
-      category: "Creative Arts",
+      // category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&q=80",
     },
     {
       name: "Creative Design & Art Studio",
-      category: "Creative Arts",
+      // category: "Creative Arts",
       image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80",
     },
     
     {
       name: "Social Impact Studio",
-      category: "Life Skills",
+      // category: "Life Skills",
       image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80",
     },
     
     {
       name: "Space & Astronomy Studio",
-      category: "STEM",
+      // category: "STEM",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
     },
     {
       name: "Social Impact & Global Community Studio",
-      category: "Life Skills",
+      // category: "Life Skills",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
     },
     {
       name: "Financial Literacy & Money Mastery Studio",
-      category: "Life Skills",
+      // category: "Life Skills",
       image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80",
     },
     {
       name: "Future Leaders & Entrepreneurship Studio",
-      category: "Humanities",
+      // category: "Humanities",
       image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80",
     },
      {
       name: "Blockchain, Web3 & FinTech Studio",
-      category: "STEM",
+      // category: "STEM",
       image: "https://images.yourstory.com/production/document_image/mystoryimage/273wgk44-Blockchain-1.jpg?fm=png&auto=format&w=800&blur=500",
     },
     {
       name: "Global Citizens & World Affairs Studio",
-      category: "Humanities",
+      // category: "Humanities",
       image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
     },
     {
       name: "Law Awareness, Cyber Security & Digital Safety Studio",
-      category: "Humanities",
+      // category: "Humanities",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
     },
     {
       name: "Indian Heritage & Civilizational Wisdom Studio",
-      category: "Humanities",
+      // category: "Humanities",
       image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=80",
+    },
+    {
+      name: "Robotics & AI Engineering Studio",
+      // category: "STEM",
+      image: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?w=600&q=80",
     },
   ],
   
@@ -208,6 +208,14 @@ export const partnerships = {
 
 export const footer = {
   tagline: "Empowering the Next Generation of AI Thinkers.",
+  quickLinks: {
+    label: "Quick links",
+    links: ["Studios", "Implementation", "Impact Framework"],
+  },
+  cognifyK12: {
+    label: "Cognify k12",
+    links: ["Vedya AI", "Virtual Internships", "Future Skill Program"],
+  },
   office: {
     label: "India Office",
     address:

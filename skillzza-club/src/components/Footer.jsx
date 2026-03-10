@@ -10,31 +10,25 @@ const Footer = () => {
   return (
     <footer className="relative bg-white py-16 lg:py-20 overflow-hidden border-t border-gray-100" ref={ref}>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Two-Column Layout: Logo Left | Content Right */}
+
+        {/* Two-Column Layout: Left (Logo + Info) | Right (Quick Links + Cognify) */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 
-          {/* ═══ LEFT: Logo & Tagline ═══ */}
+          {/* ═══ LEFT: Logo, Tagline, Office, Presence, Contact ═══ */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="lg:w-[35%] flex flex-col items-center lg:items-start"
+            className="lg:w-[40%] flex flex-col items-center lg:items-start"
           >
             <img src={logo} alt="Skillzza Logo" className="h-20 sm:h-24 w-auto mb-5" />
-            <p className="text-gray-500 text-sm sm:text-base leading-relaxed text-center lg:text-left max-w-sm">
+            <p className="text-gray-500 text-sm sm:text-base leading-relaxed text-center lg:text-left max-w-sm mb-8">
               {footer.tagline}
             </p>
-          </motion.div>
 
-          {/* ═══ RIGHT: Content Columns ═══ */}
-          <div className="lg:w-[65%] grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-10">
             {/* India Office */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="flex items-center gap-2 mb-3">
+            <div className="mb-6 w-full">
+              <div className="flex items-center gap-2 mb-2">
                 <MapPin size={18} className="text-[#7C3AED]" />
                 <h4 className="text-base font-bold text-gray-800">
                   {footer.office.label}
@@ -43,15 +37,11 @@ const Footer = () => {
               <p className="text-gray-500 text-sm leading-relaxed">
                 {footer.office.address}
               </p>
-            </motion.div>
+            </div>
 
             {/* Our Presence */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="flex items-center gap-2 mb-3">
+            <div className="mb-6 w-full">
+              <div className="flex items-center gap-2 mb-2">
                 <Globe size={18} className="text-[#7C3AED]" />
                 <h4 className="text-base font-bold text-gray-800">
                   {footer.presence.label}
@@ -64,15 +54,11 @@ const Footer = () => {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Contact Us */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <div className="flex items-center gap-2 mb-3">
+            <div className="w-full">
+              <div className="flex items-center gap-2 mb-2">
                 <Phone size={18} className="text-[#7C3AED]" />
                 <h4 className="text-base font-bold text-gray-800">
                   {footer.contact.label}
@@ -84,6 +70,52 @@ const Footer = () => {
               >
                 {footer.contact.phone}
               </a>
+            </div>
+          </motion.div>
+
+          {/* ═══ RIGHT: Quick Links + Cognify k12 ═══ */}
+          <div className="lg:w-[60%] grid grid-cols-2 gap-8 lg:gap-16">
+            {/* Quick Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <h4 className="text-lg font-bold text-gray-900 mb-5">
+                {footer.quickLinks.label}
+              </h4>
+              <ul className="space-y-3">
+                {footer.quickLinks.links.map((link, i) => (
+                  <li key={i}>
+                    <a
+                      href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="text-gray-600 text-base font-medium hover:text-[#7C3AED] transition-colors duration-300"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Cognify k12 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h4 className="text-lg font-bold text-gray-900 mb-5">
+                {footer.cognifyK12.label}
+              </h4>
+              <ul className="space-y-3">
+                {footer.cognifyK12.links.map((link, i) => (
+                  <li key={i}>
+                    <span className="text-gray-600 text-base font-medium hover:text-[#7C3AED] transition-colors duration-300 cursor-pointer">
+                      {link}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import HeroStats from './components/HeroStats'
 import Challenge from './components/Challenge'
 import SkillClubs from './components/SkillClubs'
 import StudioCategories from './components/StudioCategories'
@@ -18,8 +19,9 @@ function App() {
     <div className="overflow-x-hidden">
       <Navbar />
       <Hero />
-      <Challenge />
+      <HeroStats />
       <SkillClubs />
+      <Challenge />
       <StudioCategories />
       <StudioModel />
       <ImplementationFramework />
@@ -27,7 +29,7 @@ function App() {
       {/* <AnnualStudioFest /> */}
       <PartnersMarquee />
       <DomainsSection />
-      <Partnerships />
+      {/* <Partnerships /> */}
       <GlobalImpact />
       <Footer />
     </div>

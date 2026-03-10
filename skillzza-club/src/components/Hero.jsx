@@ -366,13 +366,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* Smooth curve transition at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-[5]" style={{ height: '120px' }}>
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" preserveAspectRatio="none">
-          <path d="M0,120 L0,40 Q360,0 720,40 T1440,40 L1440,120 Z" fill="#F0EDF8" />
-        </svg>
-      </div>
     </section>
   );
 };
