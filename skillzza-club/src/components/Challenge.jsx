@@ -6,14 +6,6 @@ import { challenge } from '../data/content';
 
 const icons = [GraduationCap, Compass, ChartNoAxesCombined, Globe2, Rocket];
 
-const gradients = [
-  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
-  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
-  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
-  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)',
-  'linear-gradient(to bottom right, #DBEAFE, #EFF6FF, #FFFFFF)'
-];
-
 const AnimatedCounter = ({ value, inView }) => {
   const [count, setCount] = useState(0);
 
@@ -56,6 +48,26 @@ const Challenge = () => {
 
   return (
     <section className="relative py-8 lg:py-16 bg-[#F0EDF8]" ref={ref}>
+      {/* CSS Animation for moving gradient */}
+      <style>{`
+        @keyframes gradient-shift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        .animated-gradient {
+          background: linear-gradient(135deg, #6B21A8, #7C3AED, #8B5CF6, #A855F7, #7C3AED, #6B21A8);
+          background-size: 200% 200%;
+          animation: gradient-shift 8s ease infinite;
+        }
+      `}</style>
+      
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-20" style={{
         backgroundImage: 'radial-gradient(circle at 2px 2px, #C4B5E2 1px, transparent 0)',
@@ -108,41 +120,33 @@ const Challenge = () => {
                 {/* Subtle gradient border on hover */}
                 <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-500 via-violet-500 to-fuchsia-500 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                {/* Card with Gradient Background */}
+                {/* Card with Animated Gradient Background */}
                 <div 
-                  className="relative rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full"
-                  style={{ background: gradients[i] }}
+                  className="relative rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full animated-gradient overflow-hidden"
                 >
                   
                   {/* Subtle gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-pink-50/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-purple-400/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Content */}
                   <div className="relative z-10 flex flex-col items-center text-center">
                     
                     {/* Icon with white background */}
                     <div className="mb-6">
-                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-4 shadow-md">
-                        <Icon size={44} className="text-[#7C3AED]" strokeWidth={2} />
+                      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 shadow-md">
+                        <Icon size={44} className="text-white" strokeWidth={2} />
                       </div>
                     </div>
 
-                    {/* Counter with gradient text */}
+                    {/* Counter with white text */}
                     <motion.div 
-                      className="text-6xl lg:text-7xl font-black mb-4"
-                      style={{
-                        background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #C084FC 100%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        filter: 'drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2))'
-                      }}
+                      className="text-6xl lg:text-7xl font-black mb-4 text-white"
                     >
                       <AnimatedCounter value={stat.value} inView={inView} />
                     </motion.div>
 
                     {/* Title */}
-                    <p className="text-gray-700 font-semibold text-sm lg:text-base leading-tight px-2">
+                    <p className="text-white font-semibold text-sm lg:text-base leading-tight px-2">
                       {stat.title}
                     </p>
                   </div>
