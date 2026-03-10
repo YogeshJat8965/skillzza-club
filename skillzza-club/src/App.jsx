@@ -28,9 +28,9 @@ function App() {
       <ImpactMeasurement />
       {/* <AnnualStudioFest /> */}
       <PartnersMarquee />
-      <DomainsSection />
+      {/* <DomainsSection /> */}
       {/* <Partnerships /> */}
-      <GlobalImpact />
+      {/* <GlobalImpact /> */}
       <Footer />
     </div>
   )
