@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useRef } from 'react';
-import girlImage from '../assets/girlImage.png';
+import girlImage from '../assets/—Pngtree—adorable little schoolgirl with happy_16809338.png';
 
 const SkillClubs = () => {
   const sectionRef = useRef(null);
