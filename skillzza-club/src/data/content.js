@@ -213,7 +213,7 @@ export const footer = {
     links: ["Studios", "Implementation", "Impact Framework"],
   },
   cognifyK12: {
-    label: "Skillzza",
+    label: "Skillzza K 12",
     links: ["Vedya AI", "Virtual Internships", "Future Skill Program"],
   },
   office: {
