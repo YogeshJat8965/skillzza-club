@@ -63,7 +63,7 @@ const HeroStats = () => {
   ];
 
   return (
-    <section className="py-12 lg:py-16" style={{ backgroundColor: '#F0EDF8' }} ref={ref}>
+    <section className="py-6 lg:py-8" style={{ backgroundColor: '#F0EDF8' }} ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, index) => (

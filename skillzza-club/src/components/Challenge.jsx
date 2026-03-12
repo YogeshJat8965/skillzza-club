@@ -47,7 +47,7 @@ const Challenge = () => {
   };
 
   return (
-    <section className="relative py-8 lg:py-16 bg-[#F0EDF8]" ref={ref}>
+    <section className="relative py-8 lg:py-16 bg-[#F0EDF8] -mt-12 lg:-mt-[108px]" ref={ref}>
       {/* CSS Animation for moving gradient */}
       <style>{`
         @keyframes gradient-shift {
@@ -82,7 +82,7 @@ const Challenge = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-4"
         >
-          <span className="inline-block px-8 py-3 rounded-full bg-red-100 text-red-600 text-base sm:text-lg font-bold uppercase tracking-widest">
+          <span className="inline-block px-5 py-2 rounded-full bg-red-100 text-red-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
             {challenge.label}
           </span>
         </motion.div>
@@ -92,7 +92,7 @@ const Challenge = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-dark mb-16 max-w-3xl mx-auto"
+          className="text-lg sm:text-xl lg:text-2xl font-extrabold text-center text-dark mb-12 max-w-3xl mx-auto"
         >
           {challenge.heading}
         </motion.h2>
@@ -132,21 +132,21 @@ const Challenge = () => {
                   <div className="relative z-10 flex flex-col items-center text-center">
                     
                     {/* Icon with white background */}
-                    <div className="mb-6">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 shadow-md">
-                        <Icon size={44} className="text-white" strokeWidth={2} />
+                    <div className="mb-4">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 shadow-md">
+                        <Icon size={36} className="text-white" strokeWidth={2} />
                       </div>
                     </div>
 
                     {/* Counter with white text */}
                     <motion.div 
-                      className="text-6xl lg:text-7xl font-black mb-4 text-white"
+                      className="text-2xl lg:text-3xl font-black mb-2 text-white"
                     >
                       <AnimatedCounter value={stat.value} inView={inView} />
                     </motion.div>
 
                     {/* Title */}
-                    <p className="text-white font-semibold text-sm lg:text-base leading-tight px-2">
+                    <p className="text-white font-semibold text-[10px] lg:text-xs leading-tight px-2">
                       {stat.title}
                     </p>
                   </div>

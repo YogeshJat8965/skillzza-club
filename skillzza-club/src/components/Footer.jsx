@@ -21,7 +21,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="lg:w-[40%] flex flex-col items-center lg:items-start"
           >
-            <img src={logo} alt="Skillzza Logo" className="h-20 sm:h-24 w-auto mb-5" />
+            <img src={logo} alt="Skillzza Logo" className="h-10 sm:h-12 w-auto mb-5" />
             <p className="text-gray-500 text-sm sm:text-base leading-relaxed text-center lg:text-left max-w-sm mb-8">
               {footer.tagline}
             </p>

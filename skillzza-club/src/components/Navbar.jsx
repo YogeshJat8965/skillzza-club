@@ -40,7 +40,7 @@ const Navbar = () => {
               className="flex items-center gap-2 group"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="Skillzza Logo" className="h-14 w-auto" />
+              <img src={logo} alt="Skillzza Logo" className="h-10 w-auto" />
             </motion.a>
 
             {/* Desktop Nav Links */}

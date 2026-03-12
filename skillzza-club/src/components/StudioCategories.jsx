@@ -82,7 +82,7 @@ const StudioCategories = () => {
   return (
     <section
       id="studios"
-      className="relative py-24 lg:py-32 sc-section overflow-hidden"
+      className="relative py-12 lg:py-16 sc-section overflow-hidden"
       ref={ref}
       onMouseEnter={() => {}}
       onMouseLeave={() => {}}

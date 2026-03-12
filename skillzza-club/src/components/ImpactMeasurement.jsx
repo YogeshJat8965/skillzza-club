@@ -18,7 +18,7 @@ const ImpactMeasurement = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
-    <section id="impact" className="relative py-24 lg:py-32 bg-primary-50 overflow-hidden">
+    <section id="impact" className="relative py-12 lg:py-16 bg-primary-50 overflow-hidden">
       {/* Background */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/20 rounded-full blur-3xl" />

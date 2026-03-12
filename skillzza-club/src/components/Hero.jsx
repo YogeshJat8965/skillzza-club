@@ -55,7 +55,7 @@ const Hero = () => {
       <div className="hero-shimmer-overlay" />
 
       {/* ─── TWO-COLUMN LAYOUT ─── */}
-      <div className="relative z-10 pt-28 sm:pt-24 lg:pt-28 xl:pt-32 pb-28 sm:pb-32 lg:pb-44 xl:pb-48 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
+      <div className="relative z-10 pt-28 sm:pt-24 lg:pt-28 xl:pt-32 pb-16 sm:pb-20 lg:pb-24 xl:pb-28 min-h-[110vh] sm:min-h-screen flex items-center" ref={ref}>
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-16 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
 

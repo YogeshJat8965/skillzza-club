@@ -71,7 +71,7 @@ const SkillClubs = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-16 lg:py-24 overflow-hidden" style={{ backgroundColor: '#FEFEFE' }}>
+    <section ref={sectionRef} className="pt-4 lg:pt-6 pb-16 lg:pb-20 overflow-hidden" style={{ backgroundColor: '#FEFEFE' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center" ref={ref}>
           {/* Left: Content */}
@@ -84,14 +84,14 @@ const SkillClubs = () => {
           >
             <motion.h2 
               variants={headingVariants}
-              className="text-4xl md:text-6xl lg:text-5xl font-bold text-gray-900 mb-8"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8"
             >
-              Skillzza K-12 Skill Clubs
+              What is the Skill Studio
             </motion.h2>
             
             <motion.p 
               variants={paragraphVariants}
-              className="text-xl md:text-2xl text-gray-700 mb-6 leading-relaxed"
+              className="text-base md:text-lg text-gray-700 mb-6 leading-relaxed"
             >
               Skillzza K-12 Skill Clubs are structured learning studios within schools where students 
               explore their interests, build real-world skills, and develop creativity through hands-on 
@@ -100,7 +100,7 @@ const SkillClubs = () => {
             
             <motion.p 
               variants={paragraphVariants}
-              className="text-xl md:text-2xl text-gray-700 leading-relaxed"
+              className="text-base md:text-lg text-gray-700 leading-relaxed"
             >
               The program focuses on experiential learning, helping students create{' '}
               <motion.span 

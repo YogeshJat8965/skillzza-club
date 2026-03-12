@@ -8,7 +8,7 @@ const StudioModel = () => {
   const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.2 });
 
   return (
-    <section className="relative py-24 lg:py-32 bg-gradient-to-br from-primary-50 via-white to-secondary-light overflow-hidden">
+    <section className="relative py-12 lg:py-16 bg-gradient-to-br from-primary-50 via-white to-secondary-light overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-20 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/30 rounded-full blur-3xl" />

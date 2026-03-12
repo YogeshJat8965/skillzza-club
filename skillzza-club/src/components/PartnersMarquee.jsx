@@ -24,11 +24,11 @@ const PartnersMarquee = () => {
         {/* Section Heading */}
         <div className="text-center mb-10 lg:mb-12">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-dark mb-3">
-            Trusted By Leading <span className="text-gray-800">Organizations</span>
+            Trusted By Educational <span className="text-gray-800">Institutes</span>
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
+          {/* <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4">
             Partnership with industry leaders and educational institutions
-          </p>
+          </p> */}
         </div>
 
         {/* Single Marquee Row */}

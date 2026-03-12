@@ -13,7 +13,7 @@ export const navCTAs = {
 
 export const hero = {
   heading: "The Future-Ready Studio Ecosystem for Progressive Schools",
-  subheading: "From Exploration to Expertise A Structured Skill Development Engine for K-12",
+  subheading: "From Exploration to Expertise - A Structured Skill Development Engine for K-12",
   // description:
   //   "Skillzza K-12 Studio Programme transforms traditional school clubs into measurable, mentored, portfolio-driven learning ecosystems. Through 15 future-ready studios across AI, Robotics, Entrepreneurship, Sustainability, Finance, Media, Law, Space, and more — schools choose any 3 studios per academic year to build depth, not distraction.",
   checklist: [
@@ -40,7 +40,7 @@ export const challenge = {
 };
 
 export const studioCategories = {
-  label: "SKILLZZA K-12 STUDIO PROGRAMME",
+  // label: "SKILLZZA K-12 STUDIO PROGRAMME",
   heading: "Our Skill Studios",
   studios: [
     {
@@ -213,7 +213,7 @@ export const footer = {
     links: ["Studios", "Implementation", "Impact Framework"],
   },
   cognifyK12: {
-    label: "Cognify k12",
+    label: "Skillzza",
     links: ["Vedya AI", "Virtual Internships", "Future Skill Program"],
   },
   office: {
@@ -236,7 +236,7 @@ export const images = {
   hero: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80",
   challenge: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80",
   studioFest: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
-  partnership: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80",
+  partnership: new URL('../assets/image copy.png', import.meta.url).href,
   implementation: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80",
   impact: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
 };
