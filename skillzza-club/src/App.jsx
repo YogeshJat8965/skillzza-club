@@ -29,7 +29,7 @@ function App() {
       {/* <AnnualStudioFest /> */}
       <PartnersMarquee />
       {/* <DomainsSection /> */}
-      {/* <Partnerships /> */}
+      <Partnerships />
       {/* <GlobalImpact /> */}
       <Footer />
     </div>
