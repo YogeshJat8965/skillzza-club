@@ -112,6 +112,10 @@ const Footer = () => {
       {/* Bottom strip */}
       <div className="bg-[#AB87F0] py-3 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Copyright */}
+          <p className="text-white text-xs sm:text-sm font-medium">
+            © {new Date().getFullYear()} Skillzza. All rights reserved.
+          </p>
           {/* Social icons */}
           <div className="flex items-center gap-4">
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -127,10 +131,6 @@ const Footer = () => {
               <Youtube size={20} className="text-white hover:text-gray-200 transition-colors duration-300" />
             </a>
           </div>
-          {/* Copyright */}
-          <p className="text-white text-xs sm:text-sm font-medium">
-            © {new Date().getFullYear()} Skillzza. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>
