@@ -90,7 +90,7 @@ const Hero = () => {
               </motion.h1>
 
               {/* Subheading */}
-              <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl lg:text-[1.35rem] text-white font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
+              <motion.p variants={itemVariants} className="text-base sm:text-lg md:text-xl lg:text-[1rem] text-white font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
                 {hero.subheading}
               </motion.p>
 
